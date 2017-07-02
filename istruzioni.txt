@@ -31,9 +31,6 @@ git commit -m "nome commit"
 
 
 
-alla creazione dell'app
-heroku config:set DISABLE_COLLECTSTATIC=1
-
 Installare un client postgres:
 sudo apt-get install postgresql
 sudo apt-get install postgresql-client
@@ -51,8 +48,12 @@ drop database nomedb;
 
 Per listare i db:
 \l
-(da eseguire dentro shel psql)
+(da eseguire dentro shell psql)
 
+
+oppure da linea di comando shell:
+sudo -u postgres dropdb nomedb
+sudo -u postgres createdb nomedb
 
 Per impostare la password dell'utente postgres per accedere al database
 sudo -u postgres psql mydb
@@ -61,28 +62,33 @@ dopodiché dare:
 ALTER USER postgres with encrypted password 'TUA_PASSWORD';
 
 
-Per uploadare il database:
-PGUSER=postgres heroku pg:push mydb DATABASE_URL --app whitegollars
-
-
-
 DUMP del database sqlite in un file:
 sqlite3 db.sqlite3 .dump > db.dump
-
-
-To copy sqlite database into postgres, we use the sequel script in ruby
-sudo apt-get install ruby-sequel
-sudo apt-get install ruby-dev
-sudo apt-get install libsqlite3-dev
-sudo gem install sqlite3-ruby  # gem seems to be like pip for python
-sequel -C sqlite://db.sqlite3 postgres://postgres:123456@localhost/fantadb
-#However this ruby script has problems with boolean;
 
 One can use my script:
 python sqlitePostgres.py db.dump postgres.dump
  sudo -u postgres psql -d mydb -W < postgres.dump
 
 
-sequel -C sqlite://db.sqlite3 postgres://postgres:123456@localhost/fantadb
+
+
+
+----AWS-----
+pip install awsebcli // utility di gestione Amazon AWS (AWS Elastic Beanstalk)
+
+// da questo momento in poi c'e' l'utility eb
+
+Conviene fare 
+eb init
+nella stessa cartella in cui e' definito git (c'e' la cartella .git). Questo si occupa di creare l'applicazione su aws.
+
+A questo punto si puo' associare un environment su aws con un branch di git. Per farlo:
+git checkout master // mi metto nel branch master 
+eb use prod  // associo all'enviroment prod
+git checkout develop // branch develop
+eb use dev // associa all'environment dev
+
+Gli environment devono gia' esistere. Si creano con
+eb create
 
 
