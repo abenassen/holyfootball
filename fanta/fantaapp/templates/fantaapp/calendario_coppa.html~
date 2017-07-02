@@ -1,0 +1,90 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto"> Calendario della coppa</h1>
+			<section id="calendario">
+
+				<ul id="tabs">
+					{% for tur in turni %}
+					 <li><a href="#" name="#tab{{ forloop.counter }}">{{ tur.0.tipo }}</a></li>
+					{% endfor %}
+  				</ul>
+				 <div id="content">
+				 {% for tur in turni %}
+     				 <div id="tab{{ forloop.counter }}">
+				    {% for inc in tur %}
+				       <div>
+					<div class="immagine_casa">
+					  {% if inc.allenatorecasa %}
+					  <img src="{{ inc.allenatorecasa.logourl }}" alt="savona"/>
+					  {% endif %}
+					</div>
+					<div class="partita_calendario">
+					<div class="casa">{{ inc.allenatorecasanome }}</div> 
+					<div class="risultato">
+					{% if inc.disputato %}
+					  {{ inc.golcasa }}-{{ inc.goltrasferta }}
+					{% else %} 
+					   - 
+					{% endif %}
+					</div>
+					<div class="trasferta">{{ inc.allenatoretrasfertanome }}</div></div>
+					<div class="immagine_trasferta">
+					  {% if inc.allenatoretrasferta %}
+					  <img src="{{ inc.allenatoretrasferta.logourl }}" alt="savona"/>
+					  {% endif %}
+					</div>
+				       </div>
+				     {% endfor %}
+				 </div>
+				 {% endfor %}
+          			</div>
+	
+
+			</section>
+
+		</div>
+		
+{% endblock %}
+
+{% block script %}
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+  <script>
+    function resetTabs(){
+        $("#content > div").hide(); //Hide all content
+        $("#tabs a").attr("id",""); //Reset id's      
+    }
+
+    var myUrl = window.location.href; //get URL
+    var myUrlTab = myUrl.substring(myUrl.indexOf("#")); // For localhost/tabs.html#tab2, myUrlTab = #tab2     
+    var myUrlTabName = myUrlTab.substring(0,4); // For the above example, myUrlTabName = #tab
+
+    (function(){
+        $("#content > div").hide(); // Initially hide all content
+        $("#tabs li:first a").attr("id","current"); // Activate first tab
+        $("#content > div:first").fadeIn(); // Show first tab content
+        
+        $("#tabs a").on("click",function(e) {
+            e.preventDefault();
+            if ($(this).attr("id") == "current"){ //detection for current tab
+             return       
+            }
+            else{             
+            resetTabs();
+            $(this).attr("id","current"); // Activate this
+            $($(this).attr('name')).fadeIn(); // Show content for current tab
+            }
+        });
+
+        for (i = 1; i <= $("#tabs li").length; i++) {
+          if (myUrlTab == myUrlTabName + i) {
+              resetTabs();
+              $("a[name='"+myUrlTab+"']").attr("id","current"); // Activate url tab
+              $(myUrlTab).fadeIn(); // Show url tab content        
+          }
+        }
+    })()
+  </script>
+{% endblock %}
+

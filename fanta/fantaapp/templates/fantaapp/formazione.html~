@@ -1,0 +1,211 @@
+{% extends "fantaapp/base_home_lega.html" %}
+
+	{% block prescript %}
+<script type="text/javascript">
+ 
+
+function disponi_con_modulo(dif, centr, att) {
+  var w = ($("#cardslot1").offsetParent().width());
+  var padd = w*0.1;
+  var wr = w - 2*padd;
+  var space = wr/dif;
+  var topdist = 150;
+  $("#cardslot1").css({
+      position:   'absolute',
+      top:      20 + topdist,
+      left:       (w/2)-25
+  });
+  for ( var i=2; i<dif+2; i++ ) {
+    $("#cardslot" + i).css({
+      position:   'absolute',
+      top:        70 + topdist,
+      left:       padd - 25 + space*(i-2) + 0.5*space
+    });
+  }
+  space = wr/centr;
+  for ( var i=dif+2; i<dif+2 + centr; i++ ) {
+    $("#cardslot" + i).css({
+      position:   'absolute',
+      top:        130 + topdist,
+      left:       padd - 25 + space*(i-2-dif) + 0.5*space
+    });
+  }
+  space = wr/att;
+  for ( var i=dif+2+centr; i<dif+2 + centr+att; i++ ) {
+    $("#cardslot" + i).css({
+      position:   'absolute',
+      top:        180 + topdist,
+      left:       padd - 25 + space*(i-2-dif - centr) + 0.5*space
+    });
+  }
+}
+
+var correctCards = 0;
+$( init );
+
+
+function init() {
+  
+  $( "#select_modulo" ).change(function() {
+    var modulo = $("#select_modulo option:selected").text().split('-');  
+    disponi_con_modulo(parseInt(modulo[0]),parseInt(modulo[1]),parseInt(modulo[2]));
+  });
+
+  
+  // Reset the game
+  correctCards = 0;
+  //$('#cardPile').html( '' );
+  //$('#cardSlots').html( '' );
+
+  // Create the pile of shuffled cards
+  var numbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+  numbers.sort( function() { return Math.random() - .5 } );
+  $(".card").draggable( {
+              stack: '#cardPile div',
+	      cursor: 'move',
+	      revert: true,
+	      scroll: false,
+	      helper: 'clone',
+	    }).width('auto').height('auto');
+  // Create the card slots
+  var words = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' ];
+  for ( var i=1; i<=11; i++ ) {
+    $('#cardslot' + i).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: handleCardDrop
+    } );    
+  }
+  disponi_con_modulo(4,4,2);
+
+}
+
+function handleCardDrop( event, ui ) {
+  //var slotNumber = $(this).data( 'number' );
+  //var cardNumber = ui.draggable.data( 'number' );
+  //alert(cardNumber);
+  // If the card was dropped to the correct slot,
+  // change the card colour, position it directly
+  // on top of the slot, and prevent it being dragged
+  // again
+    var ruolo = ui.draggable.prop('id').substring(4,5);
+    var slotid = parseInt($(this).prop('id').substr(8));
+    var accettabile = false;
+    var modulo = $("#select_modulo option:selected").text().split('-');  
+    var dif = parseInt(modulo[0]);
+    var centr = parseInt(modulo[1]);
+    var att = parseInt(modulo[2]);
+    accettabile = ruolo=='P' && slotid == 1;
+    //alert(ruolo + " " + slotid + " " + dif);
+    accettabile = accettabile || ((ruolo=='D') && slotid >= 2 && slotid <= 1 + dif);
+    accettabile = accettabile || ((ruolo=='C') && slotid >= 2+dif && slotid <= 1 + dif + centr);
+    accettabile = accettabile || ((ruolo=='A') && slotid >= 2+dif+centr && slotid <= 1 + dif + centr + att);
+    if(accettabile){
+	    $(this).droppable( 'disable' );
+	    var offsetval = ($(this).width() - ui.draggable.width())/2;
+	    $(this).children('img').hide();
+	    ui.draggable.draggable( 'option', 'revert', false );
+	    $(this).append(ui.draggable);
+	    ui.helper.hide();
+	    ui.draggable.css({ 'left': offsetval, 'position':'absolute'} );
+	    //ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+	    //ui.draggable.hide();
+	    //ui.draggable.position({top: '100', left: '100'});
+	    //ui.draggable.zIndex(100);
+    }  
+
+}
+
+ 
+</script>
+	{% endblock %}
+
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto"> Formazione</h1>
+			<section id="formazione">
+				<p class="procedi">Seleziona modulo
+				<select id="select_modulo">
+ 						<option value="modulo1">4-4-2</option>
+ 						<option value="modulo2">3-5-2</option>
+ 						<option value="modulo3">3-4-3</option>
+ 						<option value="modulo4">4-5-1</option>
+ 						<option value="modulo5">5-4-1</option>
+ 						<option value="modulo6">3-6-1</option>
+  						<option value="modulo7">5-3-2</option>
+					</select> 
+
+				<div id="content">
+					<div id="cardPile"> 
+						<div class="ruoli">
+						<p>Portieri</p>
+						{% for gioc, val in rosa.P %}
+						   <div id="cardP{{ forloop.counter }}" code={{ gioc.id}} class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+						</div>
+						<div class="ruoli">
+						<p>Difensori</p>
+						{% for gioc, val in rosa.D %}
+						   <div id="cardD{{ forloop.counter }}" code={{ gioc.id}} class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+						</div>
+						<div class="ruoli">
+						<p>Centrocampisti</p>
+						{% for gioc, val in rosa.C %}
+						   <div id="cardC{{ forloop.counter }}" code={{ gioc.id}} class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+						</div>
+						<div class="ruoli">
+						<p>Attaccanti</p>
+						{% for gioc, val in rosa.A %}
+						   <div id="cardA{{ forloop.counter }}" code={{ gioc.id}} class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+							</div>
+					</div>
+					<div id="col_dx_formaz">
+ 					<div id="cardSlots">
+					
+<div id="cardslot1" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt"/></div>
+
+<div id="cardslot2" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+<div id="cardslot3" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+<div id="cardslot4" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+<div id="cardslot5" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot6" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot7" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot8" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot9" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot10" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot11" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+</div>
+
+<div id="cardPanca">
+<p>Panchina</p>
+
+<div id="cardslot12" class='slotmaglia_riga1' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>1</figcaption></div>
+<div id="cardslot13" class='slotmaglia_riga1' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>2</figcaption></div>
+<div id="cardslot14" class='slotmaglia_riga1' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>3</figcaption></div>
+<div id="cardslot15" class='slotmaglia_riga1' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>4</figcaption></div>
+
+<div id="cardslot16" class='slotmaglia_riga2' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>5</figcaption></div>
+<div id="cardslot17" class='slotmaglia_riga2' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>6</figcaption></div>
+<div id="cardslot18" class='slotmaglia_riga2' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>7</figcaption></div>
+
+
+
+</div>
+					</div>
+					</div>
+				<p class="procedi"><a href="#">Salva la formazione</a></p>
+			</section>
+		</div>
+	
+{% endblock %}
+		
+
+
+

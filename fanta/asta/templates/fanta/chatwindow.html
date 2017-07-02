@@ -1,0 +1,14 @@
+{% include "chat/base.html" %}
+{% load static %}
+<script type="text/javascript" src="{% static "js/ajax.js" %}"></script>                                  
+
+
+<p>
+<textarea id="textarea" placeholder="" readonly></textarea>
+<br><br>
+<label for="text0">Input text</label>
+<input id="login" type="hidden" value="{{ login }}"/>
+<input id="chattext" type="text" value=""/>
+</p>
+<button class="pill"><i class="icon-star"></i>Send</button>
+

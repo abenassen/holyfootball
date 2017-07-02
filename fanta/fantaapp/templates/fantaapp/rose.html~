@@ -1,0 +1,53 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+	<div id="container">
+			<h1 id="benvenuto"> Lega {{ lega.nome }}</h1>
+				<h1>Rose</h1>
+			<section id="rose">
+
+				<div id="contenuto_rose">
+
+				{% for all, rosa in rose %}
+				<table class="tabella_rose">
+						<th class="fisso"><img src="{{ all.logourl }}" alt="{{all}}"/></th>
+						<tr>
+						<th>{{ all }}</th>
+						</tr>
+
+						<tr class="fisso"><td class="giocatore">Crediti residui:</td><td class="voto"> {{ all.budget }} </td></tr>
+
+						<tr class="reparto">
+						<td >P</td>
+						</tr>
+						{% for gioc in rosa.P %}
+						<tr><td class="giocatore">{{ gioc.0 }}</td><td class="voto"> {{ gioc.1}}</td></tr>
+						{% endfor %}
+						<tr class="reparto">
+						<td>D</td>
+						</tr>
+						{% for gioc in rosa.D %}
+						<tr><td class="giocatore">{{ gioc.0 }}</td><td  class="voto"> {{ gioc.1}}</td></tr>
+						{% endfor %}
+						<tr class="reparto">
+						<td >C</td>
+						</tr>
+						{% for gioc in rosa.C %}
+						<tr><td class="giocatore">{{ gioc.0 }}</td><td  class="voto"> {{ gioc.1}}</td></tr>
+						{% endfor %}
+						<tr class="reparto">
+						<td >A</td>
+						</tr>
+						{% for gioc in rosa.A %}
+						<tr><td class="giocatore">{{ gioc.0 }}</td><td class="voto"> {{ gioc.1}}</td></tr>
+						{% endfor %}
+						
+				</table>
+				{% endfor %}
+			       	</div>		
+
+			</section>
+
+		</div>
+		
+
+{% endblock %}

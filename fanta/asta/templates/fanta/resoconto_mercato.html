@@ -1,0 +1,48 @@
+			<table>
+					<tr>
+						<th>Ora offerta</th>
+						<th>Allenatore</th>
+						<th>Giocatore</th>
+						<th>Crediti</th>
+						<th>Giocatore da lasciare</th>
+						<th>Rilancia</th>
+						{% if allenatore.amministratore %}
+						<th>Elimina</th>
+						<th>Accetta</th>
+						{% endif %}
+					</tr>
+					{% for offerta in offerte %}
+					<tr>
+						<td>{{ offerta.orario|date:"d/m/Y G:i:s" }}</td>
+						<td>{{ offerta.allenatore.nomesquadra }}</td>
+						<td>{{ offerta.calciatore }}</td>
+						<td>{{ offerta.soldi }}</td>
+						<td>{{ offerta.calciatore_da_lasciare }}</td>
+						<td><a class='rilancia' href="{% url 'rilanciaofferta' legahash=lega.codice astaid=astaid offid=offerta.id %}"><img src="/static/fantaapp/images/rilancia.png" alt="rilancia"/></a></td>
+						{% if allenatore.amministratore %}
+						<td><a href="{% url 'eliminaofferta' legahash=lega.codice astaid=astaid offid=offerta.id %}"><img src="/static/fantaapp/images/elimina.png" alt="rilancia"/></a></td>
+						<td><a href="{% url 'approvaofferta' legahash=lega.codice astaid=astaid offid=offerta.id %}"><img src="/static/fantaapp/images/approva.png" alt="rilancia"/></a></td>
+						{% endif %}
+					</tr>
+					{% endfor %}
+
+				</table>
+				<h3>Offerte approvate</h3>
+				<table>
+					<tr>
+						<th>Ora offerta</th>
+						<th>Allenatore</th>
+						<th>Giocatore</th>
+						<th>Crediti</th>
+						<th>Giocatore lasciato</th>
+					</tr>
+					{% for offerta in approvate %}
+					<tr>
+						<td>{{ offerta.orario|date:"d/m/Y G:i:s" }}</td>
+						<td>{{ offerta.allenatore.nomesquadra }}</td>
+						<td>{{ offerta.calciatore }}</td>
+						<td>{{ offerta.soldi }}</td>
+						<td>{{ offerta.calciatore_da_lasciare }}</td>
+					</tr>
+					{% endfor %}
+				</table>

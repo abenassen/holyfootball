@@ -1,0 +1,12 @@
+<form name='{{ nomeform }}' action="{{ actionurl }}" method="{{ metodo }}">
+      {% csrf_token %}
+	{% if form.errors %}
+		<p>Completa tutti i campi.</p>
+	{% endif %}
+	<h3>{{ titolo_form }}</h3>
+	<table>
+	{{ form }}
+	<tr><td><input class='invio piccolo' type="submit" value="{{ submit_title }}" /></td>
+	<td><button type='button' class='invio piccolo' >Chiudi</button></td></tr>
+        </table>
+  </form>

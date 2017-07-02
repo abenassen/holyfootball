@@ -1,0 +1,35 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto"> Classifica</h1>
+			<section id="classifica">
+				<p class="procedi"><a id="nuova_offerta" href="#">Nuova offerta</a></p>
+				<table>
+					<tr>
+						<th>Ora offerta</th>
+						<th>Allenatore</th>
+						<th>Giocatore</th>
+						<th>Crediti</th>
+						<th>Giocatore da lasciare</th>
+						<th>Rilancia</th>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td>{{ all.nomesquadra }}</td>
+						<td>Brontolo</td>
+						<td>3</td>
+						<td>dotto</td>
+						<td><a><img src="/static/fantaapp/images/rilancia.png" alt="rilancia"/></a></td>
+					</tr>
+					{% endfor %}
+
+				</table>
+				
+
+			</section>
+
+		</div>
+		
+
+{% endblock %}

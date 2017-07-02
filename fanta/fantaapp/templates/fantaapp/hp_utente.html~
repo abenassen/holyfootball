@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Fantacalcio</title>
+		<link rel="stylesheet" href="/static/fantaapp/css/style.css" media="screen" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script type="text/javascript" >
+		    $(document).ready(function(){
+				    $('#select_leghe').on('change', function() {
+						    alert( $(this).attr("value")); // or $(this).val()
+					    });
+		    });
+		</script>
+ 
+   	</head>
+
+	<body>
+		<div id="container">
+		<h1 id="benvenuto"> Welcome {{ utente }}!</h1>
+			<section class="scelte_riga">
+			<div class="col">
+				<article>
+					<img src="/static/fantaapp/images/coppa.png" alt="Lega"/>
+					<h2>Le tue leghe</h2>
+					<p>Entra nella pagina delle leghe a cui sei iscritto. Crea o iscriviti ad una nuova lega.</p>
+					<p class="procedi"><a href="#">Iscriviti a una nuova lega</a></p>
+					<p class="procedi">Seleziona lega
+					 <select id="select_leghe">
+						<option value="seleziona" addr="1235">--Seleziona--</option>
+ 						<option value="lega2" addr="1234">lega2</option>
+  						<option value="lega3" addr="1236">Lega3</option>
+					</select> 
+					<a href="#" >VAI</a>
+					</p>
+				</article>
+			</div>
+			<div class="col">
+				<article>
+					<img src="/static/fantaapp/images/voti.png" alt="Voti"/>
+					<h2>Voti</h2>
+					<p>Consulta i voti di tutti i giocatori di serie A.</p>
+					<p class="procedi"><a href="#">Consulta</a></p>
+				</article>
+			</div>
+			</section>
+			<section class="scelte_riga">
+			<div class="col">
+				<article>
+					<img src="/static/fantaapp/images/statistiche.png" alt="Statistiche"/>
+					<h2>Statistiche</h2>
+					<p>Preparati per asta e mercato consultando le statistiche.</p>
+					<p class="procedi"><a href="#">Consulta</a></p>
+				</article>
+			</div>
+			<div class="col">
+				<article>
+					<img src="/static/fantaapp/images/quotazioni.png" alt="Quotazioni"/>
+					<h2>Quotazioni</h2>
+					<p>Consulta le quotazioni dei giocatori di serie A. Filtra i risultati per reparto o cerca il giocatore che ti interessa.</p>
+					<p class="procedi"><a href="#">Consulta</a></p>
+				</article>
+			</div>
+			</section>
+
+		</div>
+		
+
+	</body>
+
+
+</html>

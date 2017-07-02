@@ -1,0 +1,13 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+<section class="formgrande">
+
+<h1> Giornata  {{ giornata.numero }} - {{ giornata.campionato.nome }} </h1>
+<ul>
+{% for inc in incontri %}
+<li> {{ inc }}
+{% endfor %}
+</ul>
+Clicca <a href="{% url 'nuova_giornata_conferma' legahash=lega.codice %}">qui</a> per associare.
+</section>
+{% endblock %}

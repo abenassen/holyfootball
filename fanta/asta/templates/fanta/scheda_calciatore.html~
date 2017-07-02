@@ -1,0 +1,48 @@
+{% include "fanta/base.html" %}
+
+{% load humanize %}
+
+
+<table cellspacing="0" cellpadding="0">
+<div id="id_calciatore" class="invisibleStuff">{{ calciatore.pk }}</div>
+<thead><tr>
+	<th>Nome</th>
+	<th>Ruolo</th>
+	<th>Squadra</th>
+	<th>Ex-Squadra</th>
+	<th>Quotazione</th>
+</tr></thead>
+<tbody><tr>
+	<td>{{ calciatore.nome }}</td>
+	<td>{{ ruolo }}</td>
+	<td>{{ calciatore.squadra }}</td>
+	<td>{{ calciatore.exsquadra }}</td>
+	<td>{{ calciatore.quotazione }}</td>
+</tr></tbody>
+</table>
+
+<div class="col_6">
+  <div style="width: 250px; height: 220px; overflow: hidden; border: solid; position: relative;">
+       <img id="foto" src="{{calciatore.imageurl}}" style="display: block; position:relative; margin-left:auto; margin-right:auto; max-width: 250px; max-height: 220px; border: thin solid"/>
+  </div>
+</div> 
+<div class="col_6">
+{% if calciatore.fantamedia != -1 %}
+    <ul class="alt">
+    <li>Fantamedia: {{ calciatore.fantamedia|floatformat:2 }}</li>
+    <li>Presenze: {{ calciatore.presenze }}</li>
+    <li>Media voto: {{ calciatore.mediavoto|floatformat:2 }}</li>
+    {% if calciatore.ruolo != 0 %}
+      <li>Gol fatti: {{ calciatore.golfatti }}</li>
+      <li>Assist: {{ calciatore.assist }}</li>
+    {% else %}
+      <li>Gol subiti: {{ calciatore.golsubiti }}</li>
+      <li>Rigori parati: {{ calciatore.rigoriparati }}</li>
+    {% endif %}
+    <li>Ammonizioni: {{ calciatore.ammonizioni }}</li>
+    <li>Espulsioni: {{ calciatore.espulsioni }}</li>
+</ul>{% endif %}
+</div>
+
+
+

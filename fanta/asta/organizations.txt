@@ -1,0 +1,22 @@
+intjson page returning json:
+last offer
+last player inserted -> with all the corresponding data
+current budgets?
+
+
+trainer page:
+retrieve every second intjson
+   - update the current player
+   - if offer & player corresponds put an active offer and the delay
+button to make an offer with size
+   - when click add an offer (check validity)
+
+
+auctioneer page:
+retrieve every second intjson
+   - update the current player
+   - if offer & player corresponds put an active offer and the delay
+button to make an offer with size for a given trainer
+   - when click add an offer (check validity)
+button to fix the offer ad pass to the new player
+

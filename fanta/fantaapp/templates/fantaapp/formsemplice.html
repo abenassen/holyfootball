@@ -1,0 +1,15 @@
+<div class="titolo">{{ titolo_form }}</div>
+<form name="{{nome_form}}" action="{{ action }}" method="{{ metodo }}">
+      {% csrf_token %}
+	{% if form.errors %}
+		<p>Completa tutti i campi.</p>
+	{% endif %}
+
+      <!--table class="tight" cellspacing="0" cellpadding="0"><tbody>
+	{% for field in form %}
+	    {{ field }}
+	{% endfor %}
+      </tbody></table-->
+      {{ form.as_p }}
+      <input class='invio' type="submit" value="{{ submit_title }}" />
+  </form>

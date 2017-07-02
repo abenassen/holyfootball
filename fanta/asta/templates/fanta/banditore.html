@@ -1,0 +1,157 @@
+{% include "fanta/base.html" %}
+{% load static %}
+
+<script src="{% static "asta/js/reconnecting-websocket.min.js" %}"></script>
+<script type="text/javascript" src="{% url 'asta_script' legahash=lega.codice astaid=asta.id %}"></script>                                  
+<div id="wrap" class="clearfix">
+
+
+<ul class="menu">
+	<li><a href="" id="chiamagiocatore">Chiama giocatore</a></li>
+	<li><a href="" id="inserisciofferta">Accetta offerta</a></li>
+	<li><a href="" id="annullachiamata">Annulla chiamata</a></li>
+	<li><a href="">Offerte</a>
+		<ul>
+		<li><a href="" id="cancellaultimaofferta">Cancella ultima</a></li>
+		<li><a href="" id="cancellaofferte">Cancella tutte</a></li>
+		</ul>
+	</li>
+	<li><a>Acquisti</a>
+		<ul>
+		<li><a href="" id="cancellaultimoacquisto">Cancella ultimo</a></li>
+		<li><a href="" id="cancellaacquisti">Cancella tutti</a></li>
+		</ul>
+	</li>
+	<li><a href="" id="resettaasta">Resetta asta</a></li>
+</ul>
+
+
+<div class="col_12">
+  <div class="headline">
+	<h1>Benvenuto nella pagina del banditore</h1>
+  <p><small><a href="https://docs.google.com/document/d/1WKaYsgPQBC6x6PWTGcDTZ1kPiW0ZO2zyBlyfpjK_g70/pub">Clicca qui</a> per visionare il regolamento</small></p>
+  </div>
+</div>
+
+
+
+<div class="col_5">
+<div class="col_12" id="schedacorrente">
+ 
+      
+      <table cellspacing="0" cellpadding="0">
+      <div id="scheda_id" class="invisibleStuff"></div>
+      <thead><tr>
+      <th>Nome</th>
+      <th>Ruolo</th>
+      <th>Squadra</th>
+      <th>Ex-Squadra</th>
+      <th>Quotazione</th>
+      </tr></thead>
+      <tbody><tr>
+      <td id=scheda_nome></td>
+      <td id=scheda_ruolo></td>
+      <td id=scheda_squadra></td>
+      <td id=scheda_exsquadra></td>
+      <td id=scheda_quotazione></td>
+      </tr></tbody>
+      </table>
+      
+      <div class="col_6">
+      <div style="width: 250px; height: 220px; overflow: hidden; position: relative;">
+      <img id="foto" src="{{calciatore.imageurl}}" style="display: block; position:relative; margin-left:auto; margin-right:auto; max-width: 250px; max-height: 220px; border: thin solid"/>
+      </div>
+      </div>
+      <div class="col_6">
+      <ul class="alt">
+      <li>Fantamedia: <span id=scheda_fantamedia></span></li>
+      <li>Presenze: <span id=scheda_presenze></span></li>
+      <li>Media voto: <span id=scheda_mediavoto></span></li>
+      <span id=scheda_attaccante>
+        <li>Gol fatti: <span id=scheda_golfatti></span></li>
+        <li>Assist: <span id=scheda_assist></span></li>
+      </span>
+      <span id=scheda_portiere>
+        <li>Gol subiti: <span id=scheda_golsubiti></span></li>
+        <li>Rigori parati: <span id=scheda_rigoriparati></span></li>
+      </span>
+      <li>Ammonizioni: <span id=scheda_ammonizioni></span></li>
+      <li>Espulsioni: <span id=scheda_espulsioni></span></li>
+      </ul>
+      </div>
+      
+      
+      
+
+      
+      </div>
+</div>
+
+<div class="col_4">
+<label for="select1">Offerte recenti</label>
+<p><select id="ultimeofferte" name="ultimeofferte" width="440" style="width: 440px" size=5>
+</select></p>
+<div class="col_7">
+<label for="select1">Acquisti recenti</label>
+<p><select id="ultimiacquistati" width="220" style="width: 220px" size=5>
+</select></p>
+</div>
+<div class="col_5">
+<label for="select1">Ultimi chiamati</label>
+<p><select id="ultimichiamati" width="180" style="width: 180px" size=5>
+</select></p>
+</div>
+  <form action="" method=POST>
+	<label for="soldi">Entità</label>
+	<input type="text" name="soldi" placeholder="" />	
+        <p><select id="allenatore" width="250" style="width: 250px">
+          {% include "fanta/select_da_lista.html" %}
+        </select>
+	<button id="rilancia" type="button" class="green">Rilancia</button>
+    <button id="acquistodiretto" type="button" class="green">Acq. dir.</button>
+        </p>
+  </form>
+</div>
+
+<div class="col_3">
+<div class="col_12" id="resocontoallenatori">
+      <table class="tight" cellspacing="0" cellpadding="0">
+      <thead><tr>
+      <th>Nome</th>
+      <th>P</th>
+      <th>D</th>
+      <th>C</th>
+      <th>A</th>
+      <th>Budget</th>
+      </tr></thead>
+      <tbody id='tabella_allenatori'>
+      </tbody>
+      </table>
+      
+
+</div>
+<div class="center">
+   <button class="blue" id="precedente"><i class="icon-hand-left"></i>Precedente</button>
+   <button class="blue" id="prossimo"><i class="icon-hand-right"></i> Prossimo</button></div>
+   <p class="center"><label for="ruolosel">Scegli ruolo</label>
+   <select id="ruolosel">
+    <option value="-">Qualunque</option>
+    <option value="P">P</option>
+    <option value="D">D</option>
+    <option value="C">C</option>
+    <option value="A">A</option>
+   </select></p>
+</div>
+
+     <div class="col_12">Puoi visualizzare l'attuale pagina delle rose cliccando <a id="mostrarose" href="">qui</a>.</p>
+    <iframe id="roseframe" style="display: none" width=100% frameborder='1' height='330' src='https://docs.google.com/spreadsheet/pub?key=0AmdiVmUeeZxtdFFkMmVUVkNyLWJQTWJHNUFNMnUxb2c&single=true&gid=0&output=html'></iframe></div>
+    
+    
+<div class="clear"></div>
+  <div id="statusbar">
+  </div>
+
+</div>
+
+
+

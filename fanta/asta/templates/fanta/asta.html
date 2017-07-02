@@ -1,0 +1,106 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+{% load static %}
+
+<script type="text/javascript" src="{% static "asta/js/jquery.js" %}"></script>
+<script src="{% static "asta/js/jquery-ui.js" %}"></script>
+<script src="{% static "asta/js/reconnecting-websocket.min.js" %}"></script>
+<script type="text/javascript" src="{% url 'asta_script' legahash=lega.codice astaid=asta.id %}"></script>                                  
+
+
+	<div id="container">
+		<h1 id="benvenuto">Asta</h1>
+		<section id="asta">
+    
+
+    	<div id="schedacorrente">
+    			<div id="scheda_id"></div>
+			<h2 id=scheda_nome></h2>
+<hr/>
+    		<table> 	
+   			<thead><tr>
+   			<th>Ruolo</th>
+    			<th>Squadra</th>
+    			<th>Ex-Squadra</th>
+    			<th>Quotazione</th>
+   			</tr></thead>
+    			<tbody><tr>
+    <td id=scheda_ruolo></td>
+    <td id=scheda_squadra></td>
+    <td id=scheda_exsquadra></td>
+    <td id=scheda_quotazione></td>
+    </tr></tbody>
+   		 </table>
+
+<div id="info_giocatore">
+    <ul>
+    <li>Fantamedia: <span id=scheda_fantamedia></span></li>
+    <li>Presenze: <span id=scheda_presenze></span></li>
+    <li>Media voto: <span id=scheda_mediavoto></span></li>
+    <span id=scheda_attaccante>
+    <li>Gol fatti: <span id=scheda_golfatti></span></li>
+    <li>Assist: <span id=scheda_assist></span></li>
+    </span>
+    <span id=scheda_portiere>
+    <li>Gol subiti: <span id=scheda_golsubiti></span></li>
+    <li>Rigori parati: <span id=scheda_rigoriparati></span></li>
+    </span>
+    <li>Ammonizioni: <span id=scheda_ammonizioni></span></li>
+    <li>Espulsioni: <span id=scheda_espulsioni></span></li>
+    </ul>
+	</div>
+    </div>
+
+    <div id="foto_giocatore">
+    <img id="foto" src="{{calciatore.imageurl}}"/>
+    </div>
+<hr id="lineamodificata" />
+  <div id="col_sx">
+    <label for="select1">Offerte recenti</label>
+    <p><select id="ultimeofferte" name="ultimeofferte"size=5>
+    </select></p>
+    <div class="ultimi">
+    <label for="select1">Acquisti recenti</label>
+    <p><select id="ultimiacquistati"  size=5>
+    </select></p>
+    </div>
+    <div class="ultimi">
+    <label for="select1">Ultimi chiamati</label>
+    <p><select id="ultimichiamati"  size=5>
+    </select></p>
+    </div>
+    <form action="" method=POST>
+	<label for="soldi">Entità</label>
+	<input type="text" name="soldi" placeholder="" />
+    <input id="allenatore" type="hidden" value="{{ id_allenatore.pk }}"/>
+	<button id="rilancia" type="button" class="green">Rilancia</button>
+    </form>
+    </div>
+    <div id="col_dx">
+    <table id="resocontoallenatori">
+    <thead><tr>
+    <th>Nome</th>
+    <th>P</th>
+    <th>D</th>
+    <th>C</th>
+    <th>A</th>
+    <th>Budget</th>
+    </tr></thead>
+    <tbody id='tabella_allenatori'>
+    </tbody>
+    </table>
+    </div></div>
+
+    </div>
+    
+  
+<p class="procedi"><a href="#">visualizza le rose</a></p>
+
+</section>
+</div>
+    
+    
+    
+    
+{% endblock %}
+

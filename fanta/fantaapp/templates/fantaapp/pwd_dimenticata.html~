@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Fantacalcio</title>
+		<link rel="stylesheet" href="/static/fantaapp/css/style.css" media="screen" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+   	</head>
+
+	<body>
+		<section class="login">
+			<div class="titolo_spesso">Inserisci il tuo indirizzo mail per ricevere la password</div>
+			<form action="#" method="post" enctype="application/x-www-form-urlencoded">
+    			<input type="text" required title="E-mail required" placeholder="E-mail" data-icon="U">
+       			<a href="#" class="invio">Submit</a>
+   			</form>
+		</section>
+		
+
+	</body>
+
+
+</html>

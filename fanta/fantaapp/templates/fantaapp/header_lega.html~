@@ -1,0 +1,35 @@
+		<header>
+
+           		<nav>
+				<ul class="menu">
+					<li class="campionato"><a href="{% url 'home_utente' %}">Home Utente</a></li>
+					<li class="campionato"><a href="{% url 'aprilega' legahash=lega.codice %}">Home Lega</a></li>
+					<li><a href="#">Amministratore</a>
+						<ul class="sotto_menu">
+							<li id="allenatori"><a href="#">Allenatori</a>
+								<ul class="apri">
+									<li><a href="#">dotto</a></li>
+									<li><a href="#">gongolo</a></li>
+									<li><a href="#">dotto</a></li>
+									<li><a href="#">gongolo</a></li>
+									<li><a href="#">dotto</a></li>
+									<li><a href="#">gongolo</a></li>
+									<li><a href="#">dotto</a></li>
+									<li><a href="#">gongolo</a></li>
+									<li><a href="#">dotto</a></li>
+									<li><a href="#">gongolo</a></li>
+								</ul></li>
+							<li><a href="#">Henri Matisse</a></li>
+						</ul>
+					</li>
+					<li class="campionato"><a href="{% url 'formazione' legahash=lega.codice %}">Formazione</a></li>
+					<li class="campionato"><a href="{% url 'calendariolega' legahash=lega.codice %}">Calendario</a></li>
+					<li class="campionato"><a href="{% url 'tabellino' legahash=lega.codice numero_giornata=0 %}">Consulta partite</a></li>
+					<li class="campionato"><a href="#">Classifica</a></li>
+					<li class="coppa"><a href="#">Formazione coppa</a></li>
+					<li class="coppa"><a href="{% url 'calendariocoppa' legahash=lega.codice %}">Tabellone coppa</a></li>
+
+				</ul>
+			</nav>
+		</header> 
+	

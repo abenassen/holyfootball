@@ -1,0 +1,375 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% load staticfiles%}
+	{% block script %}
+<script src="{% static "fantaapp/js/jquery.ui.touch-punch.min.js" %}"></script>
+<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript">
+
+
+function isMobile() { // funzione per verificare se e' un dispositive con touch screen
+  try{ document.createEvent("TouchEvent"); return true; }
+  catch(e){ return false; }
+}
+
+function disponi_con_modulo(dif, centr, att) {
+  var w = ($("#cardslot1").offsetParent().width());
+  var padd = w*0.1;
+  var wr = w - 2*padd;
+  var space = wr/dif;
+  var topdist = 150;
+  $("#cardslot1").css({    // il portiere
+      position:   'absolute',
+      top:      20 + topdist,
+      left:       (w/2)-25
+  });
+  for ( var i=2; i<dif+2; i++ ) {
+    $("#cardslot" + i).css({
+      position:   'absolute',
+      top:        70 + topdist,
+      left:       padd - 25 + space*(i-2) + 0.5*space
+    });
+  }
+  space = wr/centr;
+  for ( var i=dif+2; i<dif+2 + centr; i++ ) {
+    $("#cardslot" + i).css({
+      position:   'absolute',
+      top:        130 + topdist,
+      left:       padd - 25 + space*(i-2-dif) + 0.5*space
+    });
+  }
+  space = wr/att;
+  for ( var i=dif+2+centr; i<dif+2 + centr+att; i++ ) {
+    $("#cardslot" + i).css({
+      position:   'absolute',
+      top:        180 + topdist,
+      left:       padd - 25 + space*(i-2-dif - centr) + 0.5*space
+    });
+  }
+}
+
+var correctCards = 0;
+$("a").each(function(){
+          $(this).attr("rel","external");
+});
+
+
+var metti_a_posto = function() {  // funzione chiamata per mettere a posto le carte
+   var par = $(this).parent();
+   if (par.hasClass('slotmaglia'))    {
+	    $('#statusbar').html("Formazione non salvata");
+	    var ruolo = $(this).prop('id').substring(4,5);
+	    if($(this).attr('primavera')=='True')
+		    $(this).remove();
+	    else {
+		    $('#'+ruolo).append($(this));
+		    if($(this).data('ui-draggable')) $(this).draggable('enable');
+	    }
+            par.children('img').show();
+	    par.children('figcaption').show();
+	    if(par.data('ui-droppable')) {
+	        par.droppable('enable');
+	    }
+   }
+}
+
+
+
+
+
+
+function dropper( th, drag, helper=false) {
+    var ruolo = drag.prop('id').substring(4,5);
+    var slotid = parseInt(th.prop('id').substr(8));
+    var accettabile = false;
+    var modulo = $("#select_modulo option:selected").text().split('-');
+    var dif = parseInt(modulo[0]);
+    var centr = parseInt(modulo[1]);
+    var att = parseInt(modulo[2]);
+    accettabile = ruolo=='P' && slotid == 1;
+    accettabile = accettabile || slotid > 11;
+    accettabile = accettabile || ((ruolo=='D') && slotid >= 2 && slotid <= 1 + dif);
+    accettabile = accettabile || ((ruolo=='C') && slotid >= 2+dif && slotid <= 1 + dif + centr);
+    accettabile = accettabile || ((ruolo=='A') && slotid >= 2+dif+centr && slotid <= 1 + dif + centr + att);
+    if(accettabile){
+	    $('#statusbar').html("Formazione non salvata");
+	    if(th.data('ui-droppable')) th.droppable( 'disable' );
+	    imgchild = th.children('img');
+	    var pos = imgchild.offset();
+	    var w = imgchild.outerWidth();
+	    if(drag.attr('primavera')=='True') {
+	     el1 = drag.clone();
+	    }
+            else el1 = drag;
+	    th.append(el1);
+	    el1.draggable( {
+              stack: '#cardPile div',
+	      cursor: 'move',
+	      revert: 'invalid',
+	      scroll: false,
+	      helper: 'clone',
+	    }).width('auto').height('auto');
+            el1.draggable('disable');
+	    if(helper) helper.hide();
+	    th.children('img').hide();
+	    th.children('figcaption').hide();
+	    var offsetval = (w - el1.width())/2.0;
+	    el1.offset({'left': pos.left + offsetval, 'top':pos.top});
+    }
+    return accettabile
+}
+
+
+function standard_dropper( event, ui) {
+    dropper($(this), ui.draggable, ui.helper);
+}
+
+
+
+var standard_init_shirt = function(obj) {
+ obj.draggable( {      // rendo le maglie draggabili
+              stack: '#cardPile div',
+	      cursor: 'move',
+	      revert: 'invalid',
+	      scroll: false,
+	      helper: 'clone',
+	    }).width('auto').height('auto');
+}
+
+
+
+var init_drop = function () { // inizializzo magliette spostabili e slot
+  init_shirt = standard_init_shirt;  
+  for ( var i=1; i<=18; i++ ) {   // rendo i cardslot della formazione droppabili
+    $('#cardslot' + i).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: standard_dropper
+    } );
+  }
+
+
+}
+
+
+var mobile_init_shirt = function(obj) {
+  obj.click(function(event) {
+        $('.borderClass').removeClass('borderClass');
+        $(this).addClass('borderClass');
+  } ).width('auto').height('auto');
+}
+
+
+var init_mobile = function () {
+  init_shirt = mobile_init_shirt;
+  //mobile_init_shirt($(".card"));
+  for ( var i=1; i<=18; i++ ) {   // rendo i cardslot rilasciabili 
+    $('#cardslot' + i).click(function (event) {
+      if ($(this).children(".card").length > 0) { // l'oggetto non e' vuoto... esco
+          return;
+      }
+      var selected_el = $('.borderClass');
+      if (selected_el.length > 0) { // qualcosa e' stato selezionato, posso procedere al rilascio
+          var parentCardSlot = selected_el.parent('.slotmaglia'); // se non e' vuoto vuol dire che il gioc stava gia' in formazione
+          console.log("cardSlot par: " + parentCardSlot);
+          console.log(parentCardSlot.length + " " + parentCardSlot.html());
+          var droppato = dropper( $(this), selected_el, false);
+          if (droppato && parentCardSlot.length > 0){
+            parentCardSlot.children('img').show();
+	    parentCardSlot.children('figcaption').show();  
+          }
+      }
+    });
+  }
+}
+
+
+
+
+$( init );
+
+
+function init() {
+  if (isMobile()) {
+  init_mobile();
+  }
+  else {
+    init_drop();
+  }
+  init_shirt($('.card'));
+
+
+  $("#salva_formazione").click(function(event) {
+     event.preventDefault();
+     var formaz = new Object();
+     for ( var i=1; i<=18; i++ ) {
+       var slot = $("#cardslot" + i);
+       if(slot.children('.card').length) {
+	   formaz[i] = slot.children('.card').attr('code');
+       }
+     }
+     $('#statusbar').html('Salvataggio in corso...');
+     //console.log(formaz);
+     $.ajax({
+	    // the URL for the request
+	    url: "{{ request.get_full_path }}",
+	    data: {
+	    csrfmiddlewaretoken: "{{ csrf_token }}",
+	    formaz: formaz,
+	    modulo: $("#select_modulo option:selected").text()
+	    },
+	    // whether this is a POST or GET request
+	    type: "POST",
+	    // the type of data we expect back
+	    dataType : "html",
+	    // code to run if the request succeeds;
+	    // the response is passed to the function
+	    success: function(txt) {
+		    //alert("evviva");
+		    $('#statusbar').html('Formazione salvata');
+		    },
+	    // code to run if the request fails; the raw request and
+	    // status codes are passed to the function
+	    error: function( xhr, status,error ) {
+	    $('#statusbar').html("La formazione non e' stata salvata, controlla la connessione!");
+	    console.log(xhr.statusText);
+	    console.log(status);
+	    console.log(error);
+	    },
+	    // code to run regardless of success or failure
+	    complete: function( xhr, status ) {
+	      console.log(xhr.responseText);
+	    }
+    });
+  });
+
+
+  $( "#select_modulo" ).change(function() {  // il modulo selezionato e' cambiato quindi cambio riazzero la formazione e ridispongo i placeholder 
+    var modulo = $("#select_modulo option:selected").text().split('-');
+    disponi_con_modulo(parseInt(modulo[0]),parseInt(modulo[1]),parseInt(modulo[2]));
+    $(".card").each(metti_a_posto);
+    });
+    $("#content").on('dblclick', ".card", metti_a_posto);
+    $("#content").on('taphold', ".card", metti_a_posto);
+    
+  
+  disponi_con_modulo({{ D }}, {{ C }}, {{ A }});
+
+  $("#select_modulo option").filter(function() {
+    return $(this).text() == '{{D}}-{{C}}-{{A}}';
+  }).prop('selected', true);
+
+  lista_schierati = [{{ formaz_list }}]; // lista dei giocatori schierati caricata dal server 
+  for (var i = 0; i<lista_schierati.length; i++) {
+	  var el = $("#cardPile [code='"+lista_schierati[i][1]+"']");
+	  $(this).children('img').hide();
+	  $(this).children('figcaption').hide();
+	  var slot = $('#cardslot' + lista_schierati[i][0]);
+	  slot.children('img').hide();
+	  slot.children('figcaption').hide();
+	  if(el.attr('primavera')=='True')
+	     el1 = el.clone();
+	  else el1 = el;
+	  slot.append(el1);
+          init_shirt(el1);
+          if (el1.data('ui-draggable')) el1.draggable('disable');
+  }
+
+}
+
+
+
+
+</script>
+{% endblock %}
+
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto"> Formazione</h1>
+			<section id="formazione">
+				<p class="procedi">Seleziona modulo
+				<select id="select_modulo">
+ 						<option value="modulo1">4-4-2</option>
+ 						<option value="modulo8">4-3-3</option>
+ 						<option value="modulo2">3-5-2</option>
+ 						<option value="modulo3">3-4-3</option>
+ 						<option value="modulo4">4-5-1</option>
+ 						<option value="modulo5">5-4-1</option>
+ 						<option value="modulo6">3-6-1</option>
+  						<option value="modulo7">5-3-2</option>
+						<option value="modulo9">5-2-3</option>
+					</select>
+
+				<div id="content">
+					<div id="cardPile">
+						<div id='P' class="ruoli">
+						<p>Portieri</p>
+						{% for gioc, val in rosa.P %}
+						   <div id="cardP{{ forloop.counter }}" code={{ gioc.id}} {% if gioc.primavera %}primavera='True'{%endif%} class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+						</div>
+						<div id='D' class="ruoli">
+						<p>Difensori</p>
+						{% for gioc, val in rosa.D %}
+						   <div id="cardD{{ forloop.counter }}" code={{ gioc.id}}  {% if gioc.primavera %}primavera='True'{%endif%}  class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+						</div>
+						<div id='C' class="ruoli">
+						<p>Centrocampisti</p>
+						{% for gioc, val in rosa.C %}
+						   <div id="cardC{{ forloop.counter }}" code={{ gioc.id}}  {% if gioc.primavera %}primavera='True'{%endif%} class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+						</div>
+						<div id='A' class="ruoli">
+						<p>Attaccanti</p>
+						{% for gioc, val in rosa.A %}
+						   <div id="cardA{{ forloop.counter }}" code='{{ gioc.id}}'  {% if gioc.primavera %}primavera='True'{%endif%}  class="card" class="ui-draggable"><img src="{% url 'magliacolorata' legahash=lega.codice %}" alt="shirt1"/><figcaption>{{gioc}}</figcaption></div>
+						{% endfor %}
+							</div>
+					</div>
+					<div id="col_dx_formaz">
+ 					<div id="cardSlots">
+
+<div id="cardslot1" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt"/></div>
+
+<div id="cardslot2" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+<div id="cardslot3" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+<div id="cardslot4" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+<div id="cardslot5" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot6" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot7" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot8" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot9" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot10" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+<div id="cardslot11" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/></div>
+
+</div>
+
+<div id="cardPanca">
+<p>Panchina</p>
+
+<div id="cardslot12" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>1</figcaption></div>
+<div id="cardslot13" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>2</figcaption></div>
+<div id="cardslot14" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>3</figcaption></div>
+<div id="cardslot15" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>4</figcaption></div>
+
+<div id="cardslot16" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>5</figcaption></div>
+<div id="cardslot17" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>6</figcaption></div>
+<div id="cardslot18" class='slotmaglia' class="ui-droppable"><img src="/static/fantaapp/images/shirt.png" alt="shirt1"/><figcaption>7</figcaption></div>
+
+
+
+</div>
+					</div>
+					</div>
+				<p class="procedi"><a id="salva_formazione" href="#">Salva la formazione</a></p>
+			</section>
+		</div>
+
+{% endblock %}
+
+
+
+

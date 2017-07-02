@@ -1,0 +1,12 @@
+{% extends "fantaapp/base.html" %}
+
+{% block content %}
+<section class="formgrande">
+{% include "fantaapp/formsemplice.html" %}
+
+{% if link %}
+ Condividi il link per far iscrivere i tuoi amici 
+ <a href='{{ link }}'>{{ link }}</a>
+{% endif %}
+</section>
+{% endblock %}

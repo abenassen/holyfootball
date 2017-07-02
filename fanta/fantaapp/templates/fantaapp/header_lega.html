@@ -1,0 +1,37 @@
+		<header>
+
+           		<nav>
+				<ul class="menu">
+					<li class="campionato"><a href="{% url 'home_utente' %}">Home Utente</a></li>
+					<li class="campionato"><a href="{% url 'aprilega' legahash=lega.codice %}">Home Lega</a></li>
+					{% if allenatore.amministratore %}
+					<li><a href="{% url 'amministrazione' legahash=lega.codice %}">Amministratore</a>
+						<ul class="sotto_menu">
+							<li><a href="{% url 'nuovagiornata' legahash=lega.codice %}">Nuova giornata</a></li>
+							<li><a href="#" id='scambiorose'>Inserisci scambio</a></li>
+							<li><a href="#" id='cambiorose'>Cambiamento rose</a></li>
+							<li><a href="#" id='aggiungicrediti'>Aggiungi crediti</a></li>
+						</ul>
+					</li>
+					{% endif %}
+					<li><a href="#">Competizioni</a>
+						<ul class="sotto_menu">
+									{% for comp in lega.competizione_set.all %}
+									<li id="competizioni"><a href="#">{{ comp.nome }}</a>
+									    <ul class="apri">
+									    <li><a href="{% url 'calendariocompetizione' legahash=lega.codice id_comp=comp.id %}">Calendario</a></li>
+                                                                            {% if comp.ha_classifica %}
+                                                                            <li><a href="{% url 'classifica' legahash=lega.codice faseid=comp.fasecompetizione_set.first.id %}">Classifica</a></li>
+                                                                            {% endif %}
+									    <li><a href="{% url 'formazione' legahash=lega.codice id_comp=comp.id %}">Formazione</a></li>
+								            </ul>
+								        </li>
+									{% endfor %}
+						</ul>
+					</li>
+                    <li class="campionato"><a href="{% url 'rose' legahash=lega.codice %}">Rose</a></li>
+
+				</ul>
+			</nav>
+		</header>
+

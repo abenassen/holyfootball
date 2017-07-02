@@ -1,0 +1,13 @@
+{% include "fanta/base.html" %}
+<div id="wrap" class="clearfix">
+<form class=center action="/fanta/asta/" method="post">
+{% csrf_token %}
+<p><label for="select1">Scegli il tuo nome nella lista </label>
+<!--<p><select name="foo" width="300" style="width: 300px" size=10>-->
+<p><select name="id_allenatore" width="300" style="width: 300px">
+{% include "fanta/select_da_lista.html" %}
+</select>
+<p><input type="submit" value="Vai all'asta" /></p>
+</form>
+
+</div>

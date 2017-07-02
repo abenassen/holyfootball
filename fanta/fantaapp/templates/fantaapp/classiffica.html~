@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+	<head>
+		<meta charset="utf-8">
+		<title>Fantacalcio</title>
+		<link rel="stylesheet" href="/static/fantaapp/css/style.css" media="screen" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+	
+ 
+   	</head>
+
+	<body>
+		<header>
+
+           		<nav>
+				<ul class="menu">
+					<li class="campionato"><a href="#">Formazione</a></li>
+					<li class="campionato"><a href="#">Calendario</a></li>
+					<li class="campionato"><a href="#">Consulta partite</a></li>
+					<li class="campionato"><a href="#">Classifica</a></li>
+	
+					<li class="coppa"><a href="#">Formazione coppa</a></li>
+					<li class="coppa"><a href="#">Consulta partite di coppa</a></li>
+					<li class="coppa"><a href="#">Tabellone coppa</a></li>
+				</ul>
+			</nav>
+			</div>
+		</header> 
+		<div id="container">
+			<h1 id="benvenuto"> Lega {{ utente }}</h1>
+			<section id="classifica">
+				<h1>Classifica</h1>
+				
+
+			</section>
+
+		</div>
+		<footer><p><cite> Rigore è quando arbitro fischia,  </cite>Vujadin Boškov</p></footer>
+		
+
+	</body>
+
+</html>

@@ -1,0 +1,11 @@
+{% extends "fantaapp/base.html" %}
+
+{% block content %}
+<section class="formgrande">
+
+{% if link %}
+L'indirizzo corrisponde ad una lega esistente di cui non sei membro.
+Ma nella lega sono ancora disponibili dei posti. Clicca  <a href='{{ link }}'>qui</a>.
+{% endif %}
+</section>
+{% endblock %}

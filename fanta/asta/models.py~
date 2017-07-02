@@ -1,0 +1,46 @@
+from django.db import models
+import datetime
+from django.utils import timezone
+from fantaapp.models import *
+
+class ConfrontoCalciatori(models.Model):
+  calciatore1 = models.ForeignKey(Calciatore, related_name='Calc1')
+  calciatore2 = models.ForeignKey(Calciatore, related_name='Calc2')
+
+class Asta(models.Model):
+ lega = models.ForeignKey(Lega)
+ creata = models.DateTimeField(editable=False)
+ modificata = models.DateTimeField()
+ apertura = models.DateTimeField() # data di apertura dell'asta
+ chiusura = models.DateTimeField() # data di chiusura dell'asta
+ tipo = models.CharField(max_length=10, default="random") # tipo di asta: se asta iniziale random, se mercato...
+ def save(self, *args, **kwargs):
+   ''' On save, update timestamps '''
+   if not self.id:
+        self.creata = datetime.datetime.today()
+   self.modificata = datetime.datetime.today()
+   return super(Asta, self).save(*args, **kwargs)
+
+class Offerta(models.Model):
+ asta = models.ForeignKey(Asta) # asta di cui l'offerta fa parte
+ allenatore = models.ForeignKey(Allenatore) # allenatore che ha fatto l'offerta
+ soldi = models.PositiveSmallIntegerField() # importo dell'offerta
+ calciatore = models.ForeignKey(Calciatore)
+ orario = models.DateTimeField(auto_now=True)
+ def __unicode__(self):
+    return "%s, %s: %s (%s) - %d milioni" % (self.orario.strftime("%H:%M"), self.allenatore, self.calciatore.nome, self.calciatore.squadra, self.soldi)
+
+
+#class Acquisto(models.Model):
+# offerta = models.ForeignKey(Offerta)
+# def __unicode__(self):
+#   return "%s da %s a %d" % (self.offerta.calciatore.nome,self.offerta.allenatore.nome, self.offerta.soldi)
+
+
+class CalciatoreChiamato(models.Model):
+ """contiene i calciatori dell'asta che sono gia' stati chiamati""" 
+ asta = models.ForeignKey(Asta) # asta corrispondente alla lista dei giocatori chiamati
+ calciatore = models.ForeignKey(Calciatore) # giocatore chiamato
+ def __unicode__(self):
+   return self.calciatore.__unicode__()
+

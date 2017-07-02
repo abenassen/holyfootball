@@ -1,0 +1,125 @@
+{% include "fanta/base.html" %}
+{% load static %}
+
+<div id="wrap" class="clearfix">
+
+<div class="col_12">
+<div class="headline">
+	<h1>Ciao {{allenatore.utente.profile.alias}}, benvenuto nella pagina dell'asta</h1>
+<p><small><a href="https://docs.google.com/document/d/1WKaYsgPQBC6x6PWTGcDTZ1kPiW0ZO2zyBlyfpjK_g70/pub">Clicca qui</a> per visionare il regolamento</small></p>
+</div>
+</div>
+
+    
+    
+    
+    
+    
+    <div class="col_5">
+    <div class="col_12" id="schedacorrente">
+    
+    
+    <table cellspacing="0" cellpadding="0">
+    <div id="scheda_id" class="invisibleStuff"></div>
+    <thead><tr>
+    <th>Nome</th>
+    <th>Ruolo</th>
+    <th>Squadra</th>
+    <th>Ex-Squadra</th>
+    <th>Quotazione</th>
+    </tr></thead>
+    <tbody><tr>
+    <td id=scheda_nome></td>
+    <td id=scheda_ruolo></td>
+    <td id=scheda_squadra></td>
+    <td id=scheda_exsquadra></td>
+    <td id=scheda_quotazione></td>
+    </tr></tbody>
+    </table>
+    
+    <div class="col_6">
+    <div style="width: 250px; height: 220px; overflow: hidden; position: relative;">
+    <img id="foto" src="{{calciatore.imageurl}}" style="display: block; position:relative; margin-left:auto; margin-right:auto; max-width: 250px; max-height: 220px; border: thin solid"/>
+    </div>
+    </div>
+    <div class="col_6">
+    <ul class="alt">
+    <li>Fantamedia: <span id=scheda_fantamedia></span></li>
+    <li>Presenze: <span id=scheda_presenze></span></li>
+    <li>Media voto: <span id=scheda_mediavoto></span></li>
+    <span id=scheda_attaccante>
+    <li>Gol fatti: <span id=scheda_golfatti></span></li>
+    <li>Assist: <span id=scheda_assist></span></li>
+    </span>
+    <span id=scheda_portiere>
+    <li>Gol subiti: <span id=scheda_golsubiti></span></li>
+    <li>Rigori parati: <span id=scheda_rigoriparati></span></li>
+    </span>
+    <li>Ammonizioni: <span id=scheda_ammonizioni></span></li>
+    <li>Espulsioni: <span id=scheda_espulsioni></span></li>
+    </ul>
+    </div>
+    
+    
+    
+    
+    
+    </div>
+    </div>
+    
+    <div class="col_4">
+    <label for="select1">Offerte recenti</label>
+    <p><select id="ultimeofferte" name="ultimeofferte" width="440" style="width: 440px" size=5>
+    </select></p>
+    <div class="col_7">
+    <label for="select1">Acquisti recenti</label>
+    <p><select id="ultimiacquistati" width="220" style="width: 220px" size=5>
+    </select></p>
+    </div>
+    <div class="col_5">
+    <label for="select1">Ultimi chiamati</label>
+    <p><select id="ultimichiamati" width="180" style="width: 180px" size=5>
+    </select></p>
+    </div>
+    <form action="" method=POST>
+	<label for="soldi">Entità</label>
+	<input type="text" name="soldi" placeholder="" />
+    <input id="allenatore" type="hidden" value="{{ id_allenatore.pk }}"/>
+	<button id="rilancia" type="button" class="green">Rilancia</button>
+    </form>
+    </div>
+    
+    <div class="col_3">
+    <div class="col_12" id="resocontoallenatori">
+    <table class="tight" cellspacing="0" cellpadding="0">
+    <thead><tr>
+    <th>Nome</th>
+    <th>P</th>
+    <th>D</th>
+    <th>C</th>
+    <th>A</th>
+    <th>Budget</th>
+    </tr></thead>
+    <tbody id='tabella_allenatori'>
+    </tbody>
+    </table>
+    </div></div>
+    
+
+<div class="col_12">	<p>Puoi visualizzare l'attuale pagina delle rose cliccando <a href="" id="mostrarose">qui</a>.</p>
+<iframe id="roseframe" width=100% frameborder='1' height='330' style="display: none" src='https://docs.google.com/spreadsheet/pub?key=0AqgVz8TnpMYUdHo5TjlnUkZFbDlWNGZLTjNUX1NQekE&single=true&gid=0&output=html'></iframe>
+</div>
+
+    <div class="clear"></div>
+    
+    <div id="footer">
+    </div>
+    
+    </div>
+    
+    
+    
+  
+    
+    
+    

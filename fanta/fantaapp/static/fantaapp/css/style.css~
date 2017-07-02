@@ -1,0 +1,969 @@
+*{
+box-sizing:border-box;
+font-family: 'Fauna One', serif;
+}
+
+body{
+background-image: url("../images/coppa.jpg");
+background-position: top left;
+background-size:100% 100%;
+background-repeat: no-repeat;
+background-attachment:fixed;
+}
+
+
+.popup table{
+	margin: auto;
+	text-align: left;
+}
+
+
+
+.popup {
+        text-align: center;
+        z-index: 1000;
+	padding:10px;
+	font-size: 10px;
+	position: fixed;
+	left: 35%;
+	top: 10%;
+	width: 30%;
+	height: auto;
+	background-color: white;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s 0s, visibility 0s 0.3s;
+        background-color: rgba(255,255,255,.9);
+        border-radius: 6px;
+        box-shadow: 0px 0px 50px rgba(0,0,0,.8);
+	overflow: hidden;
+}
+
+.popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+
+.login {
+    width: 400px;
+    height: 350px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,.3);
+    border-radius: 6px;
+    margin: 200px auto;
+    box-shadow: 0px 0px 50px rgba(0,0,0,.8);
+}
+
+.formgrande {
+    width: 450px;
+    height: 450px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,.3);
+    border-radius: 6px;
+    margin: 100px auto;
+    padding: 10px;
+    box-shadow: 0px 0px 50px rgba(0,0,0,.8);
+}
+
+.comunicazione {
+    text-align: center;
+    font-size: 20px;
+    width: 450px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,.3);
+    border-radius: 6px;
+    margin: 200px auto;
+    padding: 15px;
+    box-shadow: 0px 0px 50px rgba(0,0,0,.8);
+}
+
+.login .titolo {
+    width: 400px;
+    height: 50px;
+    padding-top:15px;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    background: #121212;
+    border: #2d2d2d solid 1px;
+    margin-bottom: 30px;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.titolo_spesso{
+    width: 400px;
+    height: 80px;
+    padding:10px;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    background: #121212;
+    border: #2d2d2d solid 1px;
+    margin-bottom: 30px;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.login form, .formgrande form {
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login form input[type=text], .login form input[type=password] {
+    width: 300px;
+    font-size: 12px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 40px;
+    border: none;
+    color: #bfbfbf;
+    background: #141414;
+    outline: none;
+    margin: 0;
+}
+
+.login form input[type=text] {
+    border-radius: 6px;
+    border-top: #0b0b0b solid 1px;
+}
+
+.login form input[type=password] {
+    border-radius: 6px;
+
+    border-bottom: #353535 1px solid;
+}
+
+
+form .invio {
+    width: 300px;
+    height: 20px;
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 25px;
+    margin:5px auto;
+    border-radius: 6px;
+    border: none;
+    border-top: #4eb2a8 1px solid;
+    border-bottom: #161616 1px solid;
+    background: #349e92;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFF;
+    text-shadow: 0 -1px #1d7464, 0 1px #7bb8b3;
+}
+
+form .invio.piccolo {
+	width: 100px;
+}
+
+.login .olvido {
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size: 10px;
+    text-align: left;
+}
+.login .olvido .col {
+display:inline-block;
+vertical-align:top;
+margin-right:50px;
+height: auto;
+}
+
+.login .olvido .col a {
+    color: #fff;
+    text-decoration: none;
+    font: 15px;
+}
+
+#logout{
+position:fixed;
+top:40px;
+right:10px;
+}
+
+#logout a{
+text-decoration:none;
+color:grey;
+font-weight:bold;
+}
+
+
+
+#container{
+width:970px;
+text-align:center;
+background-color: rgba(255,255,255,.7);
+margin: 0 auto;
+}
+
+#container .col {
+display:inline-block;
+vertical-align:top;
+width:480px;
+padding:20px;
+text-align:justify;
+}
+
+#benvenuto{
+padding:20px;
+height:70px;
+    width: 970px;
+    color: white;
+    font-weight: bold;
+    background: #121212;
+    border: #2d2d2d solid 1px;
+}
+
+.scelte_riga img{
+width:100px;
+display:inline-block;
+vertical-align:top;
+}
+
+.scelte_riga h2{
+display:inline-block;
+vertical-align:top;
+margin-left:30px;
+}
+
+.procedi{
+display:block;
+background:linear-gradient(to right, white,black);
+margin-top:25px;
+text-align:right;
+padding:0 5px 0 0;
+}
+
+.procedi, .procedi a{
+color:white;
+text-transform:uppercase;
+text-decoration:none;
+font-weight:bold;
+}
+
+/* hp lega */
+
+header{
+z-index: 100;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+-webkit-box-shadow: 2px 2px 3px #ccc;
+-moz-box-shadow: 2px 2px 3px #ccc;
+box-shadow: 2px 2px 3px #ccc;
+text-align:left;
+background-color:black;
+margin: 0 auto;
+}
+
+
+nav{
+display:inline-block;
+vertical-align:top;
+width:100%;
+padding:0;
+margin:0;
+background-color:black;
+}
+
+.menu{
+text-align:center;
+margin:0;
+padding:0;
+font-weight:bold;
+}
+
+
+ul.menu li{
+list-style-type:none;
+display:inline-block;
+vertical-align:top;
+position:relative;
+}
+
+ul.sotto_menu, ul.apri { /* les sous-menus n'apparaissent pas à l'ouverture de la page */
+display:none;
+position:absolute;/* dans un deuxième temps pour satbiliser le menu déroulant */
+}
+
+li:hover ul.sotto_menu {
+display:block;  /* reapparition du sous-menu lors du survol sur item */
+}
+
+li#allenatori:hover ul.apri {
+display: block;
+top:0px;
+left:120px;
+}
+
+nav li a {
+display:block;
+margin:0px;
+padding:6px 20px;
+color:white;
+font-size:13px;
+text-transform:uppercase;
+text-decoration:none;
+text-align:center;
+}
+
+.menu li a:hover, .menu li a.active {
+  background-color: #3090C7;
+}
+
+ul.sotto_menu>li a { /* Les boutons des sous-menus (seulement ceux là auront une largeur de 130px et une marge en haut de 1px */
+width:160px;
+border-top:1px solid #fff;
+background-color:black;
+margin-left:-50px;
+}
+ul.apri>li a { /* Les boutons des sous-menus (seulement ceux là auront une largeur de 130px et une marge en haut de 1px */
+width:160px;
+border-top:1px solid #fff;
+border-left:1px solid #fff;
+background-color:black;
+top:30px;
+left:180px;
+}
+
+
+
+
+#squadra{
+text-align:left;
+padding: 10px;
+}
+
+#gagliardetto{
+display:inline-block;
+vertical-align:top;
+width:300px;
+height:300px;
+/** border: 3px solid black;
+-webkit-box-shadow: 2px 2px 3px #ccc;
+-moz-box-shadow: 2px 2px 3px #ccc;
+box-shadow: 2px 2px 3px #ccc; **/
+margin-left:25px;
+background-color: rgba(255,255,255,0);
+overflow:hidden;
+position:relative;
+}
+
+#gagliardetto img{
+width:100%;
+position:absolute;
+}
+
+
+#gagliardetto a img{
+position:absolute;
+width:50px;
+height:50px;
+bottom:0;
+right:0;
+}
+
+#nome_squadra{
+display:inline-block;
+vertical-align:top;
+padding:20px;
+}
+
+#nome_squadra h1{
+font-size:50px;
+margin-left:50px;
+}
+
+#nome_squadra a img{
+margin-left:10px;
+width:20px;
+height:20px;
+}
+
+
+
+hr{
+width:900px;
+height: 12px;
+border: 0;
+box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+
+#news{
+width:900px;
+border: 3px solid red;
+-webkit-box-shadow: 2px 2px 3px #ccc;
+-moz-box-shadow: 2px 2px 3px #ccc;
+box-shadow: 2px 2px 3px #ccc;
+margin:auto;
+text-align:left;
+}
+
+footer{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+z-index: 800;
+-webkit-box-shadow: 2px 2px 3px #ccc;
+-moz-box-shadow: 2px 2px 3px #ccc;
+box-shadow: 2px 2px 3px #ccc;
+background-color:black;
+color:white;
+}
+
+.lega{
+display:inline-block;
+vertical-align:top;
+width:300px;
+margin-top:30px;
+margin-bottom:50px;
+}
+
+.lega img{
+width:100px;
+}
+
+
+footer p{
+text-align:center;
+font-weight:bold;
+}
+
+/* calendario */
+
+#calendario{
+margin-bottom:100px;
+}
+
+#tabs {
+	  overflow: hidden;
+	  width: 100%;
+	  margin: 0;
+	  padding: 0;
+	  list-style: none;
+	}
+
+#tabs li {
+	  float: left;
+	  margin: 0 -15px 0 0;
+	}
+
+#tabs a {
+	  float: left;
+	  position: relative;
+	  padding: 0 40px;
+	  height: 0;
+	  line-height: 30px;
+	  text-transform: uppercase;
+	  text-decoration: none;
+	  color: #fff;
+	  border-right: 30px solid transparent;
+	  border-bottom: 30px solid #3D3D3D;
+	  border-bottom-color: #777\9;
+	  opacity: .3;
+	  filter: alpha(opacity=30);
+	}
+
+#tabs a:hover, #tabs a:focus {
+	  border-bottom-color: #3090C7;
+	  opacity: 1;
+	  filter: alpha(opacity=100);
+	}
+
+#tabs a:focus {
+	  outline: 0;
+	}
+
+
+#tabs #current {
+	  z-index: 3;
+	  border-bottom-color: #3d3d3d;
+	  opacity: 1;
+	  filter: alpha(opacity=100);
+	}
+
+#link{
+text-decoration:none;
+color:#153E7E;
+}
+
+.partita_calendario{
+display:inline-block;
+vertical-align:top;
+background:radial-gradient(white,#153E7E);
+background:-moz-radial-gradient(white,#153E7E);
+margin-top:15px;
+
+padding:0 5px 0 0;
+width:800px;
+height:40px;
+}
+
+.immagine_casa, .immagine_trasferta, .casa, .risultato, .trasferta{
+display:inline-block;
+vertical-align:top;
+}
+
+.immagine_casa img, .immagine_trasferta img{
+height:70px;
+position:relative;
+}
+
+.immagine_casa img{
+left:20px;
+}
+
+.immagine_trasferta img{
+left:-20px;
+}
+
+.casa, .trasferta, .risultato{
+font-weight:bold;
+font-size:25px;
+margin-top:5px;
+}
+
+.casa{
+width:300px;
+text-align:left;
+}
+
+
+.trasferta{
+width:300px;
+text-align:right;
+}
+
+/* classifica */
+
+#classifica {
+margin-bottom: 100px;
+}
+
+#classifica table{
+width:900px;
+}
+
+
+#classifica table tr td img{
+width:50px;
+}
+
+#classifica td{
+width:50px;
+}
+
+.squadra_class{
+font-weight:bold;
+}
+
+#punti{
+font-weight:bold;
+
+}
+
+/* Rose */
+
+#rose{
+overflow-x:scroll;
+width:970px;
+margin-bottom:200px;
+padding:0;
+overflow-y:scroll;
+height:600px;
+}
+
+#contenuto_rose{
+width:2000px;
+margin-left:-70px;
+padding:0;
+
+}
+
+
+table.tabella_rose{
+border-collapse: collapse;
+width:180px;
+text-align:center;
+margin:0;
+padding:0;
+display:inline-block;
+vertical-align:top;
+border-right:3px groove black;
+}
+
+table.tabella_rose th{
+vertical-align:middle;
+width:180px;
+height:60px;
+padding-left:30px;
+}
+
+
+table.tabella_rose td{
+display:table-cell;
+margin:0;
+padding:0;
+height:30px;
+overflow:auto;
+font-size:12px;
+vertical-align:middle;
+}
+
+.giocatore{
+width:130px;
+font-weight:bold;
+}
+
+.voto{
+width:40px;
+}
+
+table.tabella_rose tr th img{
+width:60px;
+}
+
+
+.reparto{
+font-weight:bold;
+border-top:1px solid black;
+border-bottom:1px solid black;
+}
+
+/* Tabellini */
+#tabellino{
+margin-bottom:50px;
+}
+
+#tabellino #tabs a{
+width:200px;
+}
+
+
+div.tabellino{
+display: inline-block;
+}
+
+.tabellino h3{
+text-align:left;
+margin-left:40px;
+font-weight:bold;
+font-size:20px;
+}
+
+.tabellino table{
+margin-left:40px;
+margin-right:70px;
+width:300px;
+text-align:justify;
+padding:10px;
+border-bottom: 1px solid;
+}
+
+
+
+.tabellino td{
+font-weight:bold;
+width:auto;
+overflow:auto;
+vertical-align:middle;
+}
+
+.calciatore_tabellino{
+text-decoration:none;
+color:#153E7E;
+}
+
+
+/* Formazione */
+
+#formazione{
+padding-bottom:60px;
+}
+
+
+/* Slots for final card positions */
+
+#cardSlots {
+
+  margin: 50px auto 0 auto;
+  background: #ddf;
+}
+
+
+/* The initial pile of unsorted cards */
+
+/*div#content {
+overflow-y:scroll;
+height: 600px;
+padding: 20px;
+}*/
+
+.card{
+display:inline-block;
+vertical-align:top;
+width: 100px;
+height: 100px;
+}
+
+.slotmaglia{
+display:inline-block;
+vertical-align:top;
+margin-right: 25px;
+/**padding:10px;**/
+}
+
+
+div#cardPile {
+margin: 0;
+padding:10px;
+width:300px;
+height:600px;
+overflow-y:scroll;
+}
+
+#cardSlots {
+position: relative;
+margin: 0 auto;
+width:600px;
+height:400px;
+background-size: 600px;
+background-image: url("../images/campo5.jpg")
+}
+
+
+#col_dx_formaz{
+margin:0;
+padding:0;
+width:600px;
+height:600px;
+}
+
+#col_dx_formaz, #cardPile {
+display:inline-block;
+vertical-align:top;
+}
+
+#cardSlots, #cardPanca, #cardPile {
+margin: 0 auto;
+padding: 20px;
+-moz-border-radius: 6px;
+-webkit-border-radius:6px;
+border-radius: 6px;
+-moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+-webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+
+#cardPanca{
+position: relative;
+margin-top:5px;
+width:600px;
+height:195px;
+}
+
+
+
+/* Individual cards and slots */
+
+.ui-draggable, .ui-droppable {
+display:inline-block;
+vertical-align:top;
+  width: 50px;
+  height: 50px;
+
+}
+
+#cardSlots div img, #cardPile div img, #cardPanca div img {
+width:35px;
+}
+
+#cardSlots div figcaption, #cardPile div figcaption, #cardPanca div figcaption{
+text-shadow: 0 0 3px #000;
+font-size: 12px;
+color: #fff;
+text-align:center;
+}
+
+#cardPanca div figcaption{
+width:50px;
+}
+
+#cardSlots div.hovered {
+	opacity: 0.5;
+}
+
+
+#cardPile div p, #cardPanca p{
+padding:10px;
+margin-top:15px;
+  color: #153E7E;
+  font-size: 20px;
+font-weight:bold;
+  text-shadow: 0 0 3px #fff;
+}
+
+#cardPile div.ui-draggable-dragging {
+/*  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8);*/
+   /* quello che segue serve a produrre un'ombreggiatura solo dell'immagine e non del bordo come nel precedente */
+   -webkit-filter: drop-shadow(3px 8px 20px rgba(0,0,0,0.5));
+    filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='2'/><feOffset dx='4' dy='8' result='offsetblur'/><feFlood flood-color='rgba(0,0,0,0.5)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=3, OffY=8, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=3, OffY=8, Color='#444')";
+}
+
+
+
+
+
+/* asta */
+
+#asta{
+padding:0px 10px 60px 20px;
+text-align:justify;
+}
+
+
+
+#schedacorrente{
+display:inline-block;
+vertical-align:top;
+margin:0;
+padding:0;
+width:600px;
+}
+
+#scheda_nome{
+padding-top:0;
+margin-top:0;
+}
+
+#scheda_id{
+display:none;
+}
+
+#schedacorrente table{
+width:600px;
+}
+
+#schedacorrente table td{
+width:150px;
+}
+
+#foto_giocatore{
+display:inline-block;
+vertical-align:top;
+width: 300px;
+height: 250px;
+overflow: hidden;
+margin-top:70px;
+margin-left:30px;
+}
+
+#foto_giocatore img{
+position:relative;
+margin-left:auto;
+margin-right:auto;
+max-width: 300px;
+max-height: 250px;
+border: thin solid
+}
+
+#info_giocatore ul{
+padding-left:0;
+line-height:25px;
+}
+
+#info_giocatore ul li{
+list-style-type:none;
+
+}
+
+#lineamodificata{
+margin-left:-2px;
+}
+
+#col_sx{
+display:inline-block;
+vertical-align:top;
+width: 550px;
+}
+
+#col_dx{
+display:inline-block;
+vertical-align:top;
+width: 350px;
+margin:0;
+padding:0px;
+}
+
+#ultimeofferte{
+width:500px;
+size:5;
+}
+
+.ultimi{
+display:inline-block;
+vertical-align:top;
+width: 260px;
+}
+
+.ultimi p{
+width: 250px;
+
+}
+
+.ultimi p select{
+width: 235px;
+
+}
+
+#resocontoallenatori{
+width: 350px;
+margin:0;
+padding:0px;
+}
+
+#asta label{
+font-weight:bold;
+}
+
+/* asta */
+#mercato{
+/*overflow-y:scroll;*/
+}
+#mercato {
+margin-bottom: 100px;
+}
+
+#mercato table{
+width:900px;
+}
+
+
+#mercato table tr td img{
+width:50px;
+height:auto;
+}
+
+#mercato td{
+width:50px;
+}
+

@@ -1,0 +1,11 @@
+{% include "fanta/base.html" %}
+
+
+   <select size="10">
+    {% for allenatore in lista_allenatori %}
+        <option>allenatore.nome</option>
+    {% endfor %}
+    </ul>
+  {% else %}
+   </select>
+

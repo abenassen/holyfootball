@@ -1,0 +1,54 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto"> Calendario della coppa</h1>
+			<section id="calendario">
+
+				<ul id="tabs">
+					{% for tur in turni %}
+					 <li><a href="#" name="#tab{{ forloop.counter }}">{{ tur.0.tipo }}</a></li>
+					{% endfor %}
+  				</ul>
+				 <div id="content">
+				 {% for tur in turni %}
+     				 <div id="tab{{ forloop.counter }}">
+				    {% for inc in tur %}
+				    <div>
+					<div class="immagine_casa">
+					  {% if inc.allenatorecasa %}
+					  <img src="{{ inc.allenatorecasa.logourl }}" alt="savona"/>
+					  {% endif %}
+					</div>
+					<div class="partita_calendario">
+					<div class="casa">{{ inc.allenatorecasanome }}</div>
+					<div class="risultato">
+					<a href='{% url 'tabellinocoppa' legahash=lega.codice incontro_id=inc.id%}'>
+					<table class="doppiorisultato">
+					<tr><td>{% if inc.incontro_andata.disputato %} {{ inc.incontro_andata.golcasa }}-{{ inc.incontro_andata.goltrasferta }}{% else %} - {% endif %}</tr>
+					<tr><td>{% if inc.incontro_ritorno.disputato %} {{ inc.incontro_ritorno.goltrasferta }}-{{ inc.incontro_ritorno.golcasa }}{% else %} - {% endif %}</tr>
+					</table>
+					</a>
+					</div>
+					<div class="trasferta">{{ inc.allenatoretrasfertanome }}</div></div>
+					<div class="immagine_trasferta">
+					  {% if inc.allenatoretrasferta %}
+					  <img src="{{ inc.allenatoretrasferta.logourl }}" alt="savona"/>
+					  {% endif %}
+					</div>
+				       </div>
+				     {% endfor %}
+				 </div>
+				 {% endfor %}
+          			</div>
+
+
+			</section>
+
+		</div>
+
+{% endblock %}
+
+{% block script %}
+{% include "fantaapp/fadingmenu.html" %}
+{% endblock %}
+

@@ -1,0 +1,92 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto">Resoconto offerte</h1>
+			<section id="mercato">
+				<p class="procedi"><a id="nuova_offerta" href="#">Nuova offerta</a></p>
+				<div id="resoconto_offerte">
+ 				{% include "fanta/resoconto_mercato.html" %}
+				</div>
+
+
+			</section>
+
+		</div>
+
+<div class='popup'>
+Ciao bello
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+ 	$('.rilancia').click(function(event) {
+		$link = $(this).attr('href'); 	
+		event.preventDefault();
+		$('#statusbar').html("Caricamento...");
+		$.get( $link, function(data, status) {
+			$('.popup').html(data);
+			$('.popup').addClass('is-visible');
+			$('#statusbar').html("Procedi!");
+		});
+u
+		event.preventDefault();
+		$('#statusbar').html("Caricamento...");
+		$.get( "{% url 'nuovaofferta' legahash=lega.codice astaid=astaid %}", function(data, status) {
+			$('.popup').html(data);
+			$('.popup').addClass('is-visible');
+			$('#statusbar').html("Procedi!");
+		});
+
+	});
+	$('#nuova_offerta').click(function(event) {
+		event.preventDefault();
+		$('#statusbar').html("Caricamento...");
+		$.get( "{% url 'nuovaofferta' legahash=lega.codice astaid=astaid %}", function(data, status) {
+			$('.popup').html(data);
+			$('.popup').addClass('is-visible');
+			$('#statusbar').html("Procedi!");
+		});
+	});
+        var chiudi_popup = function() {
+	      $('.popup').removeClass('is-visible')
+	}
+	$('.popup').on('click', 'button[type="button"]', function () {
+								chiudi_popup();
+							        $('#statusbar').html("Pensaci bene...");
+								} );
+	$('.popup').on('submit', 'form[name="form_nuovaofferta"]', function(event) {
+	   event.preventDefault();
+	   $('#statusbar').html("Inserimento...");
+	    $theForm = $('form[name="form_nuovaofferta"]');
+	    $.ajax({
+             type: $theForm.attr('method'),
+             url: $theForm.attr('action'),
+             data: $theForm.serialize(),
+             success: function(data) { // la richiesta e' andata a buon fine ma il form ha dato errori nella validazione
+		  alert(status);
+	          // data.form contains the HTML for the replacement form
+	          $('.popup').html(data);
+	      },
+		    	     error: function( xhr, status,error ) {
+				if (xhr.status==303) {  // l'offerta e' stata inserita e ho ricevuto lo status di redirezione
+		            	$('#statusbar').html("Offerta inserita");
+				        chiudi_popup();
+					    $('#resoconto_offerte').load("{% url 'resocontomercato' legahash=lega.codice astaid=astaid %}");
+			        }
+				else {  //altro tipo d'errore
+					$('#statusbar').html("Problemi con l'offerta...");
+					console.log(xhr.statusText);
+					console.log(status);
+					console.log(error);
+					console.log(xhr.responseText);
+				}
+	     }
+
+            });
+	   });
+
+</script>
+{% endblock %}

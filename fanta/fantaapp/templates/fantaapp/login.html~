@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Fantacalcio</title>
+		<link rel="stylesheet" href="/static/fantaapp/css/style.css" media="screen" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script type="text/javascript" >
+		    $(document).ready(function(){
+			$("#id_username").attr('placeholder', '{{form.username.label}}');
+			$("#id_password").attr('placeholder', '{{form.password.label}}');
+		    });
+		</script>
+   	</head>
+
+	<body>
+
+		{% if form.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+		{% endif %}
+		<section class="login">
+			<div class="titolo">Login</div>
+
+			<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+			{% csrf_token %}
+    			<!--input type="text" required title="Username required" placeholder="Username" data-icon="U"-->
+			{{ form.username }}                      
+        		{{ form.password }}
+                        <!--input type="password" required title="Password required" placeholder="Password" data-icon="x"-->
+        			<div class="olvido">
+        			<div class="col"><a href="#" title="Registrati">Register</a></div>
+       				<div class="col"><a href="#" title="Recupera Password">Forgot Password?</a></div>
+       			</div>
+			<input class="invio" type="submit" value="Submit" />
+			<input type="hidden" name="next" value="{{ next }}" />
+       			<!-- a href="#" class="invio">Submit</a-->
+   			</form>
+		</section>
+		
+
+	</body>
+
+
+</html>

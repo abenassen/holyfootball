@@ -1,0 +1,43 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto"> Lega {{ lega.nome }}</h1>
+			<section id="classifica">
+				<h1>Classifica</h1>
+				<table>
+					<tr>
+						<th> </th>
+						<th> </th>
+						<th>Pti </th>
+						<th>G</th>
+						<th>V</th>
+						<th>P</th>
+						<th>S</th>
+						<th>RF</th>
+						<th>RS</th>
+						<th>Media</th>
+					</tr>
+					{% for all, all_data in dati_allenatori %}
+					<tr>
+						<td><img src="{{ all.logourl }}" alt="{{ all.nomesquadra }}"/></td>
+						<td class="squadra_class">{{ all.nomesquadra }}</td>
+						<td id="punti">{{ all_data.punti }}</td>
+						<td>{{ all_data.giocate }}</td>
+						<td>{{ all_data.vinte }}</td>
+						<td>{{all_data.patte }}</td>
+						<td>{{all_data.sconfitte }}</td>
+						<td>{{all_data.rf }}</td>
+						<td>{{all_data.rs }}</td>
+						<td>{{all_data.fm }}</td>
+					</tr>
+					{% endfor %}
+
+				</table>
+				
+
+			</section>
+
+		</div>
+		
+
+{% endblock %}

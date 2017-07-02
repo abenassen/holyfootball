@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+	<head>
+		<meta charset="utf-8">
+		<title>Fantacalcio</title>
+		<link rel="stylesheet" href="/static/fantaapp/css/style.css" media="screen" type="text/css" />
+		<link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+ 		<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>-->
+
+ 
+
+    {% block prescript %}
+    {% endblock %}
+ 
+ 
+   	</head>
+
+	<body>
+  <header>
+    {% block header %}
+      {% include "fantaapp/header_lega.html" %}
+  
+
+ {% endblock header %}
+
+  </header>
+<div id="logout"><a id="logout_link" href="{% url 'logout' %}">Logout</a></div>
+{% block content %}{% endblock %}
+
+    {% block footer %}
+      {% include "fantaapp/footer_lega.html" %}
+    {% endblock footer %}
+ 
+    {% block script %}
+    {% endblock %}
+	</body>
+ 
+</html>
+
+
+

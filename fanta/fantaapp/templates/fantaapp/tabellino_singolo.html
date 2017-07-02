@@ -1,0 +1,64 @@
+				<div class="tabellino_header">
+					<div class="immagine_casa_tabellino"><img src="{{ inc.allenatorecasa.logourl }}" alt="{{ inc.allenatorecasa.nomesquadra }}"/></div>
+					<div class="partita_calendario_tabellino"><div class="casa">{{ inc.allenatorecasa.nomesquadra }}</div> <div class="risultato">{{ inc.golcasa}}-{{ inc.goltrasferta }}</div><div class="trasferta">{{ inc.allenatoretrasferta.nomesquadra }}</div></div>
+					<div class="immagine_trasferta_tabellino"><img src="{{ inc.allenatoretrasferta.logourl }}" alt="{{ inc.allenatoretrasferta.nomesquadra }}"/></div>
+				</div>
+				<div class='tabellino'>
+				<table>
+				{% if inc.formazionecasa %}
+				   {% for ref in inc.formazionecasa.referto_set.all %}
+				      {% if ref.posizione < 12 %}
+				         <tr>
+					   <td><a href='#' refid={{ref.id}} class='calciatore_tabellino'>{% if ref.voto %} {{ ref.voto.calciatore }} {% else %} {{ ref.calciatore.nome }} {% endif %}</a></td>
+					   <td>{% if ref.entrato_in_campo %} {{ ref.fantavoto }} {% endif %} </td>
+					   <td>{% if ref.modificatore %} {{ ref.votopuro }} {% endif %} </td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+			        </table>
+				   <h3>Panchina</h3>
+     				<table>
+				   {% for ref in inc.formazionecasa.referto_set.all %}
+				      {% if ref.posizione >= 12 %}
+				         <tr>
+					   <td><a href='#' refid={{ref.id}} class='calciatore_tabellino'>{% if ref.voto %} {{ ref.voto.calciatore }} {% else %} {{ ref.calciatore.nome }} {% endif %}</a></td>
+					   <td>{% if ref.entrato_in_campo %} {{ ref.fantavoto }} {% endif %} </td>
+					   <td>{% if ref.modificatore %} {{ ref.votopuro }} {% endif %} </td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+				   <tr><td>Modificatore: </td><td>{% if inc.modtrasferta == 0 %} 0 {% else %} - {{inc.modtrasferta}} {% endif %}</td><td></td></tr>
+				   <tr><td>Totale: </td><td>{{ inc.fmcasa }}</td><td></td></tr>
+				{%endif%}
+     				</table>
+          			</div>
+       				<div class='tabellino'>
+				<table>
+				{% if inc.formazionetrasferta %}
+				   {% for ref in inc.formazionetrasferta.referto_set.all %}
+				      {% if ref.posizione < 12 %}
+				         <tr>
+					   <td><a href='#' refid={{ref.id}} class='calciatore_tabellino'>{% if ref.voto %} {{ ref.voto.calciatore }} {% else %} {{ ref.calciatore.nome }} {% endif %}</a></td>
+					   <td>{% if ref.entrato_in_campo %} {{ ref.fantavoto }} {% endif %} </td>
+					   <td>{% if ref.modificatore %} {{ ref.votopuro }} {% endif %} </td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+			        </table>
+				   <h3>Panchina</h3>
+     				<table>
+				   {% for ref in inc.formazionetrasferta.referto_set.all %}
+				      {% if ref.posizione >= 12 %}
+				         <tr>
+					   <td><a href='#' refid={{ref.id}} class='calciatore_tabellino'>{% if ref.voto %} {{ ref.voto.calciatore }} {% else %}  {{ ref.calciatore.nome }} {% endif %}</a></td>
+					   <td>{% if ref.entrato_in_campo %} {{ ref.fantavoto }} {% endif %} </td>
+					   <td>{% if ref.modificatore %} {{ ref.votopuro }} {% endif %} </td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+				   <tr><td>Modificatore: </td><td>{% if inc.modcasa == 0 %} 0 {% else %} - {{inc.modcasa}} {% endif %}</td><td></td></tr>
+				   <tr><td>Totale: </td><td>{{inc.fmtrasferta}}</td><td></td></tr>
+				{%endif%}
+     				</table>
+          			</div>
+

@@ -1,0 +1,4 @@
+    {% for lis in reversed(lista) %}
+        <option value="{{lis.id}}">{{lis}}</option>
+    {% endfor %}
+

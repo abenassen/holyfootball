@@ -1,0 +1,20 @@
+<form name='form_editavoto' action="{% url 'editavoto' legahash=lega.codice referto_id=referto_id %}" method="{{ metodo }}">
+      {% csrf_token %}
+	{% if form.errors %}
+		<p>Completa tutti i campi.</p>
+	{% endif %}
+	{% if form_voto %}
+	<h3>Voto della redazione</h3>
+	<table>
+	{{ form_voto }}
+        </table>
+	<h3>Edita qui di seguito, se non vuoi prendere i voti ufficiali </h3>
+	{% else %}
+	<h3>Edita qui di seguito se non vuoi il voto standard del giocatore primavera</h3> 
+	{% endif %}
+	<table>
+	{{ form_referto }}
+	<tr><td><input class='invio piccolo' type="submit" value="{{ submit_title }}" /></td>
+	<td><button type='button' class='invio piccolo' >Chiudi</button></td></tr>
+        </table>
+  </form>

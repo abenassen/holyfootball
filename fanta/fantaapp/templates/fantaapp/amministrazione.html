@@ -1,0 +1,500 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+
+
+	<div id="container">
+		<h1 id="benvenuto"> Lega {{ lega.nome }}</h1>		
+		<section id="amministrazione">
+			<ul id="tabs">
+			{% for comp in lega.competizione_set.all %}
+			 <li><a href="#" name="#tab{{ forloop.counter }}">{{ comp.nome }}</a></li>
+			{% endfor %}
+			 <li><a href="#" name="#tab{{ lega.competizione_set.count|add:"1" }}">Nuova competizione</a></li>
+  			</ul>
+			<div id="content">
+			{% for comp in lega.competizione_set.all %}
+				 <div class='competizione' id="tab{{ forloop.counter }}" name="{{ comp.id }}">
+					<h2>{{ comp.nome }}</h2>
+					<div class="fasi">
+					</div>
+				 </div>
+			{% endfor %}
+				<div class='competizione' id="tab{{ lega.competizione_set.count|add:"1" }}" name="nuovacomp">
+					 <h2><div class="testo_editabile">
+					 <div class="contenitore_testo" id="nomecomp"> Nuova competizione </div>
+					 </div>
+					 </h2>
+					<h3>
+					<select id="tipofase">
+					  <option value="girone">Fase a gironi</option>
+	  				  <option value="elidir">Fase a eliminazione diretta</option>
+	  				  <option value="premio">Premiazione</option>
+					
+					</select>	
+					<button type="button" id="opener">Inserisci</button>		
+					</h3>
+
+					<div id="dialgirone" title="Dettagli Girone" hidden="hidden">
+    					<form name="fgirone"> 
+					     Numero squadre:  <input type="number" name="numsquadre" min="3" max="{{ allenatori.count }}"><br>
+					     Numero tornate:  <input type="number" name="numtornate" min="1" max="12"><br>
+					      <fieldset>
+					        Solo andata <input type="radio" name="tipogirone" value="sa"/>
+					        Andata/Ritorno  <input type="radio" name="tipogirone" value="ar"/>
+					     </fieldset>
+					     Giornata di partenza:  <input type="number" name="giornini" min="1" max="{{ giornfin }}"><br>
+					     Giornata finale:  <input type="number" name="giornfin" min="1" max="{{ giornfin }}">
+					</form>
+					</div>
+					<div id="dialelidir" title="Dettagli Turno eliminatorio" hidden="hidden">
+  					<form name="felidir">
+					     Numero incontri:  <input type="number" name="numincontri" min="1" max="{% widthratio allenatori.count 2 1 %}"><br>
+					     Solo andata <input type="radio" name="tipoelidir" value="sa" checked="checked"/>
+					     Andata/Ritorno  <input type="radio" name="tipoelidir" value="ar"/><br>
+					     Giornata andata:  <input type="number" name="giornini" min="1" max="{{ giornfin }}"><br>
+					     <div class="ritorno" hidden="hidden">Giornata ritorno:  <input type="number" name="giornfin" min="1" max="{{ giornfin }}"></div>
+					</form>
+  					</div>
+					<div id="dialpremio" title="Dettagli Premiazione" hidden="hidden">
+  					<form name="fpremio">
+					     Numero squadre premiate:  <input type="number" name="numpremiate" min="1" 
+					     max="{{ allenatori.count }}"><br>
+					</form>
+  					</div>
+
+				<div class="fasi">
+				</div>
+				<button class="salvataggio" type="button" hidden="hidden">Salva Competizione</button>
+				</div>
+
+
+<div id="templatefasi" hidden="hidden">
+  <div id="dgirone">
+    <a class="closeButton"></a>
+    <h3><div class="testo_editabile"><div class="contenitore_testo"> TemplateGirone </div></div></h3>
+    <select name="scegliteam">
+      {% for alle in allenatori.all %}
+           <option value='{{ alle.id }}'>{{ alle }}</option>
+      {% endfor %}
+    </select>
+    <button type="button" class="aggiuntateam">Aggiungi</button>
+    <select name="listagirone" size='3'></select>
+    <hr>
+    <div class="schemacalendario"></div>
+  </div>
+
+  <div id="delidir">
+    <a class="closeButton"></a>
+    <h3><div class="testo_editabile"><div class="contenitore_testo"> TemplateElidir </div></div></h3>
+    <div class="schemacalendario"></div>
+  </div>
+
+  <div id="dpremio">
+    <a class="closeButton"></a>
+    <h3><div class="testo_editabile"><div class="contenitore_testo"> TemplatePremio </div></div></h3>
+    <select name="dapremiare">
+      {% for alle in allenatori.all %}
+           <option value='{{ alle.id }}'>{{ alle }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+{% include "fantaapp/fadingmenu.html" %}
+<script>
+$(function () {
+  num_gironi = 0;
+  nome_turni = {};
+  nome_turni[1] = "Finale";
+  nome_turni[2] = "Semifinale";
+  nome_turni[4] = "Quarti di finale";
+  nome_turni[8] = "Ottavi di finale";
+  nome_turni[16] = "Sedicesimi di finale";
+  var compdata = [];
+  {% for comp in lega.competizione_set.all %}
+  {% if comp.istr %}
+  compdata.push({{ comp.istr|safe }});
+  {% else %}
+  compdata.push([]);  
+  {% endif %} 
+  {% endfor %}
+  console.log("lunghezza dati  " + compdata.length);
+  for(var kk = 0; kk < compdata.length; kk++) { // itera tra le fasi della competizione
+     console.log("lunghezza dati kk " + kk +  " " +  compdata[kk].length);
+     for(var ff = 0; ff < compdata[kk].length; ff++) {
+	var tabcurr = $("#tab" + (kk+1)).children('.fasi');
+	if (compdata[kk][ff]['tipo'] == 'girone') {
+	      var newdiv = $('<div></div>');
+	      newdiv.attr('termine', compdata[kk][ff]['termine']);
+      	      newdiv.attr('name', compdata[kk][ff]['nome']);
+	      newdiv.attr('type', 'girone');
+	      newdiv.attr('numerosquadre', compdata[kk][ff]['numerosquadre']);
+	      $(newdiv).addClass('elementofase').addClass('fasegirone').append($("#dgirone").html().replace("TemplateGirone", compdata[kk][ff]['titolo']));
+	      var incontri = compdata[kk][ff]['incontri'];
+	      for(var ii = 0; ii < incontri.length; ii++) {
+	        //"<div class='incontrogirone' giornatagirone='" + count + "' giornatacampionato='" + giorn_campionato + "' ht='t" +(kshift+1) + "' at='t" +(othkk + 1) + "'>'Team " + (kshift+1) + "' - 'Team " + (othkk + 1)+ "'</div>\n"; 
+	        console.log("Incontro " + ii + " " + JSON.stringify(incontri[ii]));
+	      }
+        }
+        //console.log(newdiv.html());
+        console.log("tabcurr " + tabcurr.html());
+        tabcurr.append(newdiv);
+        //console.log(kk + " " + JSON.stringify(compdata[kk][ff]));
+     }
+  }
+  
+  $(".testo_editabile").each(function () {
+    $(this).append('<a class="edita_testo" href="#"><img src="/static/fantaapp/images/matita.png" alt="modifica"/></a><a class="salva_testo" href="#" hidden><img src="/static/fantaapp/images/salva.png" alt="salva"/></a>');
+  });					 
+  $(document).on('click', '.edita_testo', function(event) { event.preventDefault();
+  			console.log("edita testo premuto " + $(this).parent().html());
+			$(this).parent().find('.contenitore_testo').attr("contenteditable", "true").focus();
+			$(this).toggle();
+			$(this).parent().children('.salva_testo').toggle();
+			});
+  $(document).on('click', '.salva_testo', function(event) { event.preventDefault();
+  			console.log("salva testo premuto");
+			$(this).parent().find('.contenitore_testo').attr("contenteditable", "true")
+			$(this).toggle();
+			$(this).parent().children('.edita_testo').toggle();
+		});
+  $( "#dialgirone" ).dialog({
+    autoOpen: false,
+    buttons: {
+    "Ok":function() {
+      var num_squadre = $( "form[name='fgirone'] input[name='numsquadre']" ).val();
+      var num_tornate = $( "form[name='fgirone'] input[name='numtornate']" ).val();
+      var giorn_ini = $( "form[name='fgirone'] input[name='giornini']" ).val();
+      var giorn_fin = $( "form[name='fgirone'] input[name='giornfin']" ).val();
+      var tipo_girone = $("form[name='fgirone'] input[name='tipogirone']:checked").val();
+      var res = aggiungi_girone(num_squadre,num_tornate,giorn_ini,giorn_fin, tipo_girone);
+      if (res) {
+      	$(".salvataggio").show();
+      	var idcurr = $('#current').attr('name');
+      	$(idcurr).find(".fasi").append(res);
+      }
+      $( this ).dialog( "close" );
+    },
+    "Cancel": function() {
+      $( this ).dialog( "close" );
+     }
+    }
+  });
+  aggiungi_girone = function(num_squadre = 3, num_tornate = 1, giorn_ini = {{ giornini }}, giorn_fin = {{ giornfin }}, tipo_girone = 'sa') {
+      //inserisce una fase a girone
+      num_gironi =  $('.fasi .fasegirone').size()+1;
+      var num_squadre_ott = num_squadre-1;
+      num_tornate_ott = num_tornate;
+      if (tipo_girone == 'ar') num_tornate_ott = 2*num_tornate_ott;
+      var isodd = false;
+      if (num_squadre % 2 === 1) {
+      	num_squadre_ott = num_squadre;
+      	isodd = true;
+      }
+      var giornate_necessarie = num_squadre_ott * num_tornate_ott;
+      var stepgiornate = Math.max(Math.floor((giorn_fin - giorn_ini)*1./(giornate_necessarie-1.0)),1);
+      if(num_squadre == "") { 
+      	alert("Numero squadre non inserito.");
+      	return false;
+      }
+      var termine_girone  = (giorn_ini*1. + stepgiornate*(giornate_necessarie-1));
+      if( termine_girone > {{ giornfin }}) {
+      	alert("Giornate totali insufficienti.");
+      	return false;
+      }
+      var newdiv = $('<div></div>');  // prepara il div del girone
+      newdiv.attr('termine', termine_girone);
+      newdiv.attr('name', 'girone'+num_gironi);
+      newdiv.attr('type', 'girone');
+      newdiv.attr('numerosquadre', num_squadre);
+      $(newdiv).addClass('elementofase').addClass('fasegirone').append($("#d" + valsel).html().replace("TemplateGirone", 'Girone ' + num_gironi));
+      $(newdiv).find("select[name='listagirone']").attr('size', num_squadre);
+      var newoptions = altrigironi(giorn_ini);
+      newoptions += altrielidir(giorn_ini);
+      newdiv.children("select[name='scegliteam']").append(newoptions);
+      var listasquadre = [];
+      //alert(num_squadre + " " + num_tornate_ott +" " + giorn_ini + " " + giorn_fin + " " + tipo_girone + " " + giornate_necessarie + " " + stepgiornate);      
+      for (var k = 0; k < num_squadre; k++) {
+         listasquadre.push("Team " +k);
+      }
+      var tornata = "";
+      var count = 0;
+      for (var tt = 0; tt < num_tornate_ott; tt++) {
+        for (var gg = 0; gg < num_squadre_ott; gg++) { // numero di giornate 
+          count++;
+          var giorn_campionato = (giorn_ini*1 + (count-1)*stepgiornate );
+          tornata = tornata + "<div class='giornata'><h3>Giornata " + count +" [ " + giorn_campionato+ ". {{ lega.campionato }} ] </h3> \n";
+          if (!isodd) {
+            if (tipo_girone === 'ar' && (tt+gg) % 2 === 0) {
+               tornata = tornata + "<div class='incontrogirone' giornatagirone='" + count + "' giornatacampionato='" + giorn_campionato + "' ht='t" +(gg+1) + "' at='t" +num_squadre + "'>'Team " + (gg+1) + "' - 'Team " + num_squadre+ "'</div>\n"; 
+            }
+            else {
+               tornata = tornata + "<div class='incontrogirone' giornatagirone='" + count + "' giornatacampionato='" + giorn_campionato + "' ht='t" +num_squadre + "' at='t" +(gg+1) + "'>'Team " +num_squadre + "' - 'Team " + (gg + 1)+ "'</div>\n"; 
+            }
+          }
+          for (var kk = 1; kk <= num_squadre_ott/2; kk++) {
+  	    var kshift = (kk + gg) % num_squadre_ott;
+            var othkk = (num_squadre_ott - kk + gg) % num_squadre_ott ;
+            if (tipo_girone === 'ar' && (tt+gg) % 2 === 0) {
+               tornata = tornata + "<div class='incontrogirone' giornatagirone='" + count + "' giornatacampionato='" + giorn_campionato + "' ht='t" +(kshift+1) + "' at='t" +(othkk + 1) + "'>'Team " + (kshift+1) + "' - 'Team " + (othkk + 1)+ "'</div>\n"; 
+            }
+            else {
+               tornata = tornata + "<div class='incontrogirone' giornatagirone='" + count + "' giornatacampionato='" + giorn_campionato + "' ht='t" +(othkk + 1) + "' at='t" +(kshift+1) + "'>'Team " + (othkk+1) + "' - 'Team " + (kshift + 1)+ "'</div>\n"; 
+            }
+          }
+          tornata = tornata + "</div>";
+        }
+      }
+      $(newdiv).find('.schemacalendario').html(tornata);
+      return $(newdiv); 
+  };
+  $( "#dialelidir" ).dialog({
+    autoOpen: false,
+    buttons: {
+    "Ok":function() {
+      var num_squadre = $( "form[name='felidir'] input[name='numincontri']" ).val();
+      var giorn_ini = $( "form[name='felidir'] input[name='giornini']" ).val();
+      //alert("Giornata di partenza " + giorn_ini);
+      var giorn_fin = $( "form[name='felidir'] input[name='giornfin']" ).val();
+      var tipo_girone = $("form[name='felidir'] input[name='tipoelidir']:checked").val();
+      $(".salvataggio").show();
+      var res = aggiungi_elidir(num_squadre,giorn_ini,giorn_fin, tipo_girone);
+      if (res) {
+       	$(".salvataggio").show();
+      	var idcurr = $('#current').attr('name');
+      	$(idcurr).find(".fasi").append(res);
+      }
+      $( this ).dialog( "close" );
+    },
+    "Cancel": function() {
+      $( this ).dialog( "close" );
+     }
+    }
+  });
+  aggiungi_elidir = function(num_incontri = 3, giorn_ini = {{ giornini }}, giorn_fin = {{ giornfin }}, tipo_girone = 'sa') { 
+      num_elidir =  $('.fasi .faseelidir').size()+1;
+      //alert(num_incontri +" " + giorn_ini + " " + giorn_fin + " " + tipo_girone);
+      if (tipo_girone == 'ar' && giorn_fin*1 < giorn_ini*1) {
+      	alert("Il ritorno non può precedere l'andata!");
+      	return false;
+      }
+      var newdiv = $('<div></div>');
+      var termine_elidir = giorn_ini;
+      if (tipo_girone == 'ar') termine_elidir = giorn_fin*1;
+      newdiv.attr('type', 'elidir');
+      newdiv.attr('termine', termine_elidir);
+      newdiv.attr('name', 'turno'+num_elidir);
+      newdiv.attr('numeroincontri', num_incontri);
+      var testotitolo = "";
+      if (num_incontri in nome_turni)      {
+	testotitolo =  'Turno eliminatorio ' + num_elidir + ' - ' + nome_turni[num_incontri];
+      }
+      else {
+        testotitolo = 'Turno eliminatorio ' + num_elidir + ' - Preliminare';
+      }
+      $(newdiv).addClass('elementofase').addClass('faseelidir').append($("#d" + valsel).html().replace('TemplateElidir', testotitolo));
+      var newoptions = altrigironi(giorn_ini);
+      newoptions += altrielidir(giorn_ini);
+      console.log("siamo qui: " + newoptions);
+      var testoincontri = "";
+      for(var kk = 0; kk<num_incontri; kk++) {
+          testoincontri += "<h4>Incontro " + (kk+1) + "<br>";
+          if(tipo_girone == 'sa') {
+            testoincontri += "[" + giorn_ini+ ". {{ lega.campionato }}]</h4>";
+            testoincontri += "<div class='incontroelidir' tipogirone='sa' giornatacampionato='" + giorn_ini + "' indice='" + (kk+1) + "'>";
+          }
+          else {
+            testoincontri += "[Andata/Ritorno " + giorn_ini+ " - " + giorn_fin + ". {{ lega.campionato }}]</h4>"; 
+            testoincontri += "<div class='incontroelidir' tipogirone='ar' giornatacampionato='" + giorn_ini + "," + giorn_fin +"'  indice='" + (kk+1) + "'>";
+          }
+          testoincontri += "Squadra casa: <select name='ht'>";
+          {% for alle in allenatori.all %}
+          testoincontri += "<option value='{{ alle.id }}'>{{ alle }}</option>";
+          {% endfor %}
+          testoincontri += newoptions;
+          testoincontri += "</select>";
+          testoincontri += "<br> Squadra trasferta: <select name='at'>";
+          {% for alle in allenatori.all %}
+          testoincontri += "<option value='{{ alle.id }}'>{{ alle }}</option>";
+          {% endfor %}
+          testoincontri += newoptions;
+          testoincontri += "</select>";
+          testoincontri += "</div>\n";
+      }
+      $(newdiv).find('.schemacalendario').html(testoincontri);
+      //$(".fasi").append($(newdiv));       
+      return $(newdiv);
+  };
+  aggiungi_premio = function() { 
+      num_premi =  $('.fasi .fasepremio').size()+1;
+      var newdiv = $('<div></div>');
+      newdiv.attr('type', 'premio');
+      newdiv.attr('name', 'premio'+num_premi);
+      $(newdiv).addClass('elementofase').addClass('fasepremio').append($("#d" + valsel).html().replace('TemplatePremio', 'Premio ' + num_premi));
+      var newoptions = altrigironi(1000);
+      newoptions += altrielidir(1000); // aggiungo tutte le competizioni precedenti
+      console.log(newoptions);
+      newdiv.children("select[name='dapremiare']").append(newoptions);
+      return $(newdiv);
+      //$(".fasi").append($(newdiv));       
+  };
+    
+  var altrigironi = function(giorn_ini) {
+        var newoptions = "";
+  	$('.fasi .fasegirone').each(function () {
+  	 console.log("dati " + $(this).attr('termine')*1 + " " + giorn_ini*1);
+         if($(this).attr('termine')*1 < giorn_ini*1) {
+         	 var idcomp = $(this).parents('.competizione').attr('name');
+               	 console.log("numerosquadre " + $(this).attr('numerosquadre'));
+	         for (var kk = 0; kk < $(this).attr('numerosquadre')*1; kk++) {
+	   	    newoptions = newoptions + "<option value='" + idcomp + "__" + $(this).attr('name') + "__" + kk 
+        	     + "'>Classificato " + (kk+1) + " (" + $(this).attr('name') + ")</option>\n";
+       	 	 }
+                 //newdiv.children("select[name='scegliteam']").append(newoptions);
+       	 } 
+      });
+      return newoptions;
+  };    
+  var altrielidir = function(giorn_ini) {
+        var newoptions = "";
+  	$('.fasi .faseelidir').each(function () {
+         if($(this).attr('termine')*1 < giorn_ini*1) {
+	         var idcomp = $(this).parents('.competizione').attr('name');       	 
+               	 for (var kk = 0; kk < $(this).attr('numeroincontri')*1; kk++) {
+	   	    newoptions = newoptions + "<option value='" + idcomp + "__" + $(this).attr('name') + "__" + kk 
+        	     + "'>Vincente incontro" + (kk+1) + " (" + $(this).attr('name') + ")</option>\n";
+       	 	 }
+       	 	 for (var kk = 0; kk < $(this).attr('numeroincontri')*1; kk++) {
+	   	    newoptions = newoptions + "<option value='" + idcomp + "__" + $(this).attr('name') + "__" + (kk+ $(this).attr('numeroincontri')*1)
+        	     + "'>Ripescata " + (kk+1) + " (" + $(this).attr('name') + ")</option>\n";
+       	 	 }
+                 //newdiv.children("select[name='scegliteam']").append(newoptions);
+       	 } 
+      });
+      return newoptions;
+  };    
+  $(".fasi").on('click', '.closeButton', function () {
+	$(this).parent().fadeOut(300, function() { $(this).remove(); });
+  });
+  $(".fasi").on('click', '.aggiuntateam', function () {
+	var elem = $(this).parent().children("select[name='scegliteam']");
+	var opt = elem.find("option:selected");
+	var lista = $(this).parent().children("select[name='listagirone']");
+	if(lista.find('option').size() == lista.attr('size')) return;
+	lista.append(opt);
+	var entryindex = lista.find("option").size();
+	var htmltext = $(this).parent().find(".schemacalendario").html();
+	//console.log(entryindex);
+	//console.log("Team " + entryindex + " " + opt.text());
+	//console.log(htmltext);
+	htmltext = htmltext.split("'Team " + entryindex + "'").join(opt.text());
+        htmltext = htmltext.split('"t' + entryindex + '"').join('"'+opt.val() + '"');
+	$(this).parent().find(".schemacalendario").html(htmltext);
+  });
+  $("#opener").click(function() {
+      valsel = $( "#tipofase option:selected").val();
+      if (valsel=='premio') {
+        var res = aggiungi_premio();
+        var idcurr = $('#current').attr('name');
+      	$(idcurr).find(".fasi").append(res);
+      }
+      else {
+        console.log("qua ci sono");
+      	$("#dial" + valsel).dialog('open');
+      }
+  });
+
+  $(".salvataggio").click(function() {
+      var completato = true;
+      //console.log("conta gironi esistenti " + $(this).prev(".fasi").find("select[name='listagirone']").size());
+      $(this).prev(".fasi").find("select[name='listagirone']").each(function () {
+        console.log($(this).attr('size')+ " " + $(this).find("option").size());
+        completato = completato && ($(this).attr('size')==$(this).find("option").size());
+      });
+      if (!completato) {
+        alert("Completa prima l'inserimento delle squadre nelle competizioni");
+        return;
+      }
+      var salvataggio = {};
+      salvataggio['fasi'] = [];
+      salvataggio['id'] = $(this).parent().attr('name');
+      salvataggio['nome'] = $(this).parent().find('.contenitore_testo').html();
+      $('.fasi .elementofase').each(function () {
+        var fase = {};
+        fase['titolo'] = $(this).find('.contenitore_testo').html();
+        fase['tipo'] = $(this).attr('type');
+        fase['nome'] = $(this).attr('name');
+        if($(this).attr('type')==='') {
+          fase['dapremiare'] = $(this).find('.dapremiare option:selected');
+          salvataggio['fasi'].push(fase);
+          return;
+        }
+        fase['termine'] = $(this).attr('termine');
+        fase['numerosquadre'] = $(this).attr('numerosquadre');        
+        fase['incontri'] = [];
+        $(this).find('.incontrogirone').each(function () {
+	   var incontro = {};
+	   incontro['giornatagirone'] = $(this).attr('giornatagirone');
+	   incontro['giornatacampionato'] = $(this).attr('giornatacampionato');
+	   incontro['squadracasa'] = $(this).attr('ht');
+	   incontro['squadratrasferta'] = $(this).attr('at');
+	   fase['incontri'].push(incontro);        
+        });
+        $(this).find('.incontroelidir').each(function () {
+	   var incontro = {};
+	   incontro['giornatacampionato'] = $(this).attr('giornatacampionato');
+	   incontro['squadracasa'] = $(this).find("select[name='ht'] option:selected").val();
+	   incontro['squadratrasferta'] = $(this).find("select[name='at'] option:selected").val();
+	   console.log("stampo l'html "+ $(this).html());
+	   //alert($(this).find("select[name='ht'] option:selected").val());
+	   fase['incontri'].push(incontro);        
+        });
+        fase['datipremio'] = $(this).find("select[name='dapremiare'] option:selected").val();
+        salvataggio['fasi'].push(fase);
+      });
+      console.log(JSON.stringify(salvataggio))
+      //salvataggio[csrfmiddlewaretoken] = "{{ csrf_token }}";
+      $.ajax({
+				type: "POST",
+                                dataType: 'json',
+				url: "{% url 'editacompetizione' legahash=lega.codice  %}",
+				// the data to send (will be converted to a query string)
+				data: {csrfmiddlewaretoken: "{{ csrf_token }}", 'salvataggio': JSON.stringify(salvataggio) },
+				success: function(result){
+   				   $('#statusbar').html("Competizione salvata con successo.");	
+				   console.log(JSON.stringify(result));
+				},
+				error: function( xhr, status,error ) {
+				$('#statusbar').html("Impossibile salvare la competizione.");
+				console.log(xhr.statusText);
+				console.log(status);
+				console.log(error);
+				console.log(xhr.responseText)
+				}
+      });    
+  });
+  
+  $("input[type=radio][name=tipoelidir]").change(function() {
+     if($(this).val() === 'ar') {
+       $(this).parent().children('.ritorno').show();
+     }
+     else  {
+       $(this).parent().children('.ritorno').hide();
+     }
+     console.log($(this).val());
+  });
+
+});
+
+</script>
+
+
+{% endblock %}

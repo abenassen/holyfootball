@@ -1,0 +1,125 @@
+{% include "fanta/base.html" %}
+{% load static %}
+<script>
+$(function(){
+        $('html').keydown(function(e){
+            e.preventDefault();
+            if(e.which== 37) { // left
+              $('#leftbutton').click();                        
+              }
+              else if(e.which == 39) { // right
+              $('#rightbutton').click();                        
+              }
+            //else if(e.which == 38) { // up
+            //  }
+            //else if(e.which == 40) { // down
+            //  }
+        });
+    });
+</script>
+<body>
+<div id="wrap" class="clearfix">
+
+<div class="col_12">
+  <div class="headline">
+	<h1>Confronta giocatori</h1>
+  </div>
+</div>
+<div class="col_5">
+    <table cellspacing="0" cellpadding="0">
+    <thead><tr>
+    <th>Nome</th>
+    <th>Ruolo</th>
+    <th>Squadra</th>
+    <th>Ex-Squadra</th>
+    <th>Quotazione</th>
+    </tr></thead>
+    <tbody><tr>
+    <td id=scheda_nome1>{{ calc1.nome }}</td>
+    <td id=scheda_ruolo1>{{ ruolo1 }}</td>
+    <td id=scheda_squadra1>{{ calc1.squadra }}</td>
+    <td id=scheda_exsquadra1>{{ calc1.exsquadra }}</td>
+    <td id=scheda_quotazione1>{{ calc1.quotazione }}</td>
+    </tr></tbody>
+    </table>
+    <div class="col_6">
+      <div style="width: 250px; height: 220px; overflow: hidden; position: relative;">
+      <img id="foto" src="{{calc1.imageurl}}" style="display: block; position:relative; margin-left:auto; margin-right:auto; max-width: 250px; max-height: 220px; border: thin solid"/>
+      </div>
+    </div>
+    <div class="col_6">
+     <ul class="alt">
+      <li>Fantamedia: <span id=scheda_fantamedia1>{{ calc1.fantamedia }}</span></li>
+      <li>Presenze: <span id=scheda_presenze1>{{ calc1.presenze }}</span></li>
+      <li>Media voto: <span id=scheda_mediavoto1>{{ calc1.mediavoto }}</span></li>
+      <span id=scheda_attaccante1>
+       <li>Gol fatti: <span id=scheda_golfatti1>{{ calc1.golfatti }}</span></li>
+       <li>Assist: <span id=scheda_assist1>{{ calc1.assist }}</span></li>
+      </span>
+      <span id=scheda_portiere1>
+       <li>Gol subiti: <span id=scheda_golsubiti1>{{ calc1.golsubiti }}</span></li>
+       <li>Rigori parati: <span id=scheda_rigoriparati1>{{ calc1.presenze }}</span></li>
+      </span>
+      <li>Ammonizioni: <span id=scheda_ammonizioni1>{{ calc1.ammonizioni }}</span></li>
+      <li>Espulsioni: <span id=scheda_espulsioni1>{{ calc1.espulsioni }}</span></li>
+     </ul>
+    </div>
+<form class=center method=GET action="{% url 'salvaconfronto' %}">
+  <input type="hidden" name="calc1" value="{{ calc1.id }}">
+  <input type="hidden" name="calc2" value="{{ calc2.id }}">
+  <button id=leftbutton type="submit" class='blue'>{{ calc1.nome }}</button>
+</form> 
+</div>
+<div class="col_5">
+    <table cellspacing="0" cellpadding="0">
+    <thead><tr>
+    <th>Nome</th>
+    <th>Ruolo</th>
+    <th>Squadra</th>
+    <th>Ex-Squadra</th>
+    <th>Quotazione</th>
+    </tr></thead>
+    <tbody><tr>
+    <td id=scheda_nome1>{{ calc2.nome }}</td>
+    <td id=scheda_ruolo1>{{ ruolo2 }}</td>
+    <td id=scheda_squadra1>{{ calc2.squadra }}</td>
+    <td id=scheda_exsquadra1>{{ calc2.exsquadra }}</td>
+    <td id=scheda_quotazione1>{{ calc2.quotazione }}</td>
+    </tr></tbody>
+    </table>
+    <div class="col_6">
+      <div style="width: 250px; height: 220px; overflow: hidden; position: relative;">
+      <img id="foto" src="{{calc2.imageurl}}" style="display: block; position:relative; margin-left:auto; margin-right:auto; max-width: 250px; max-height: 220px; border: thin solid"/>
+      </div>
+    </div>
+    <div class="col_6">
+     <ul class="alt">
+      <li>Fantamedia: <span id=scheda_fantamedia1>{{ calc2.fantamedia }}</span></li>
+      <li>Presenze: <span id=scheda_presenze1>{{ calc2.presenze }}</span></li>
+      <li>Media voto: <span id=scheda_mediavoto1>{{ calc2.mediavoto }}</span></li>
+      <span id=scheda_attaccante1>
+       <li>Gol fatti: <span id=scheda_golfatti1>{{ calc2.golfatti }}</span></li>
+       <li>Assist: <span id=scheda_assist1>{{ calc2.assist }}</span></li>
+      </span>
+      <span id=scheda_portiere1>
+       <li>Gol subiti: <span id=scheda_golsubiti1>{{ calc2.golsubiti }}</span></li>
+       <li>Rigori parati: <span id=scheda_rigoriparati1>{{ calc2.rigoriparati }}</span></li>
+      </span>
+      <li>Ammonizioni: <span id=scheda_ammonizioni1>{{ calc2.ammonizioni }}</span></li>
+      <li>Espulsioni: <span id=scheda_espulsioni1>{{ calc2.espulsioni }}</span></li>
+     </ul>
+    </div>
+<form class=center method=GET action="{% url 'salvaconfronto' %}">
+  <input type="hidden" name="calc1" value="{{ calc2.id }}">
+  <input type="hidden" name="calc2" value="{{ calc1.id }}">
+  <button id=rightbutton type="submit" class='red'>{{ calc2.nome }}</button> 
+</form> 
+</div>	
+</body>
+</html>    
+    
+    
+  
+    
+    
+    

@@ -1,0 +1,13 @@
+{% include "fanta/base.html" %}
+<div id="wrap" class="clearfix">
+<form class=center action="/fanta/banditore/" method="post">
+{% csrf_token %}
+{% if wrong %}
+<h3>Password scorretta! Inseriscila nuovamente.</h3>
+{% endif %}
+<p><label for="password">Inserisci la password del banditore</label></p>
+<input type="password" name="password" size="15" maxlength="14">
+<p><input type="submit" value="Vai all'asta" /></p>
+</form>
+
+</div>

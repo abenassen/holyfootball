@@ -1,0 +1,8 @@
+{% extends "fantaapp/base_home_lega.html" %}
+
+{% block content %}
+<section class="comunicazione">
+<h2>{{ msg }}</h2>
+
+</section>
+{% endblock %}

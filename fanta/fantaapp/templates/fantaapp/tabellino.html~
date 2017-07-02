@@ -1,0 +1,231 @@
+{% extends "fantaapp/base_home_lega.html" %}
+{% block content %}
+		<div id="container">
+			<h1 id="benvenuto">Ultima giornata</h1>
+			<section id="tabellino">
+				<ul id="tabs">
+					{% for inc in incontri %}
+     					<li><a href="#" name="#tab{{forloop.counter}}">{{ inc }}</a></li>
+					{% endfor %}
+  				</ul>
+				 <div id="content">
+			         {% for inc in incontri %}
+     				 <div id="tab{{ forloop.counter }}">
+					<div class="immagine_casa"><img src="{{ inc.allenatorecasa.logourl }}" alt="{{ inc.allenatorecasa.nomesquadra }}"/></div>
+					<div class="partita_calendario"><div class="casa">{{ inc.allenatorecasa.nomesquadra }}</div> <div class="risultato">5-5</div><div class="trasferta">{{ inc.allenatoretrasferta.nomesquadra }}</div></div>
+					<div class="immagine_trasferta"><img src="{{ inc.allenatoretrasferta.logourl }}" alt="{{ inc.allenatoretrasferta.nomesquadra }}"/></div>
+				<div class='tabellino'>
+				<table>
+				   {% for ref in inc.formazionecasa.referto_set.all %}
+				      {% if ref.posizione < 12 %}
+				         <tr>
+					   <td>{{ ref.calciatore }}</td>
+					   <td>{% if ref.entrato_in_campo %} {{ ref.fantavoto }} {% endif %} </td>
+					   <td>{% if ref.modificatore %} {{ ref.votopuro }} {% endif %} </td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+			        </table>
+				   <h3>Panchina</h3>
+     				<table>   
+				   {% for ref in inc.formazionecasa.referto_set.all %}
+				      {% if ref.posizione >= 12 %}
+				         <tr>
+					   <td>{{ ref.calciatore }}</td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+     				</table>
+          			</div>
+          			<div class='tabellino'>
+				<table>
+				   {% for ref in inc.formazionecasa.referto_set.all %}
+				      {% if ref.posizione < 12 %}
+				         <tr>
+					   <td>{{ ref.calciatore }}</td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+			        </table>
+				   <h3>Panchina</h3>
+     				<table>   
+				   {% for ref in inc.formazionecasa.referto_set.all %}
+				      {% if ref.posizione >= 12 %}
+				         <tr>
+					   <td>{{ ref.calciatore }}</td>
+					 </tr>
+				      {% endif %}
+				   {% endfor %}
+     				</table>
+          			</div>
+				</div>
+				{% endfor %}
+				<div id="tab1">
+          			<div>
+					<div class="immagine_casa"><img src="/static/fantaapp/images/savona.png" alt="savona"/></div>
+					<div class="partita_calendario"><div class="casa">savona</div> <div class="risultato">5-5</div><div class="trasferta">Savona</div></div>
+					<div class="immagine_trasferta"><img src="/static/fantaapp/images/savona.png" alt="savona"/></div>
+				</div>
+          			<table class="tabellino">
+					<tr>
+						<td>dotto</td>
+						<td>3</td>
+						<td>mammolo</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<td>gongolo</td>
+						<td>2</td>
+						<td>cucciolo</td>
+						<td>2</td>
+					</tr>
+
+					<tr>
+						<td>eolo</td>
+						<td>1</td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+				<table>
+			</section>
+			<h3>Panchina</h3>
+          			<table class="tabellino">
+					<tr>
+						<td>dotto</td>
+						<td>3</td>
+						<td>mammolo</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<td>gongolo</td>
+						<td>2</td>
+						<td>cucciolo</td>
+						<td>2</td>
+					</tr>
+
+					<tr>
+						<td>eolo</td>
+						<td>1</td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+		</div>
+{% endblock %}
+
+{% block script %}
+  <script type='text/javascript'>
+    function resetTabs(){
+        $("#content > div").hide(); //Hide all content
+        $("#tabs a").attr("id",""); //Reset id's      
+    }
+
+    var myUrl = window.location.href; //get URL
+    var myUrlTab = myUrl.substring(myUrl.indexOf("#")); // For localhost/tabs.html#tab2, myUrlTab = #tab2     
+    var myUrlTabName = myUrlTab.substring(0,4); // For the above example, myUrlTabName = #tab
+
+    (function(){
+        $("#content > div").hide(); // Initially hide all content
+        $("#tabs li:first a").attr("id","current"); // Activate first tab
+        $("#content > div:first").fadeIn(); // Show first tab content
+        
+        $("#tabs a").on("click",function(e) {
+            e.preventDefault();
+            if ($(this).attr("id") == "current"){ //detection for current tab
+             return       
+            }
+            else{             
+            resetTabs();
+            $(this).attr("id","current"); // Activate this
+            $($(this).attr('name')).fadeIn(); // Show content for current tab
+            }
+        });
+
+        for (i = 1; i <= $("#tabs li").length; i++) {
+          if (myUrlTab == myUrlTabName + i) {
+              resetTabs();
+              $("a[name='"+myUrlTab+"']").attr("id","current"); // Activate url tab
+              $(myUrlTab).fadeIn(); // Show url tab content        
+          }
+        }
+    })()
+  </script>
+{% endblock %}

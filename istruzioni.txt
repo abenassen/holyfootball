@@ -1,0 +1,88 @@
+Conviene creare un virtualenv per avere una lista di pacchetti indipendente.
+Per farlo eseguire
+virtualenv --no-site-packages nomevenv
+
+e poi
+
+source nomevenv/bin/activate
+
+
+Per uscire dal virtualenv:
+deactivate
+
+
+Then, you can install all the required packages by
+pip install -r requirements.txt
+(it can be generated using
+pip freeze > requirements.txt 
+)
+
+Note that the package psycopg2 may require libpq-dev on ubuntu, so in case of error you might try:
+sudo apt-get install libpq-dev
+
+Per creare un punto di partenza git:
+git init
+
+da eseguire nella cartella.
+
+Per aggiungere le modifiche:
+git add .
+git commit -m "nome commit"
+
+
+
+alla creazione dell'app
+heroku config:set DISABLE_COLLECTSTATIC=1
+
+Installare un client postgres:
+sudo apt-get install postgresql
+sudo apt-get install postgresql-client
+
+
+Per usare l'utility psql di gestione database:
+sudo -u postgres psql
+
+Per creare un database, entra nell'utility psql e runna:
+create database nomedb;
+NON DIMENTICARE IL ";", PERCHE' ALTRIMENTI NON DA' ERRORE E RESTA A PRENDERE COMANDI PER SEMPRE...
+
+Per eliminare un db:
+drop database nomedb;
+
+Per listare i db:
+\l
+(da eseguire dentro shel psql)
+
+
+Per impostare la password dell'utente postgres per accedere al database
+sudo -u postgres psql mydb
+
+dopodiché dare:
+ALTER USER postgres with encrypted password 'TUA_PASSWORD';
+
+
+Per uploadare il database:
+PGUSER=postgres heroku pg:push mydb DATABASE_URL --app whitegollars
+
+
+
+DUMP del database sqlite in un file:
+sqlite3 db.sqlite3 .dump > db.dump
+
+
+To copy sqlite database into postgres, we use the sequel script in ruby
+sudo apt-get install ruby-sequel
+sudo apt-get install ruby-dev
+sudo apt-get install libsqlite3-dev
+sudo gem install sqlite3-ruby  # gem seems to be like pip for python
+sequel -C sqlite://db.sqlite3 postgres://postgres:123456@localhost/fantadb
+#However this ruby script has problems with boolean;
+
+One can use my script:
+python sqlitePostgres.py db.dump postgres.dump
+ sudo -u postgres psql -d mydb -W < postgres.dump
+
+
+sequel -C sqlite://db.sqlite3 postgres://postgres:123456@localhost/fantadb
+
+

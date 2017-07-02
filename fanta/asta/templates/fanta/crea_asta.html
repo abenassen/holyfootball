@@ -1,0 +1,12 @@
+{% extends "fantaapp/base.html" %}
+
+{% block content %}
+<section class="formgrande">
+
+{% if link %}
+<h3>
+Benvenuto nella pagine di creazione di un'asta per la tua lega.
+Clicca <a href='{{ link }}'>qui</a> per crearla!</h3>
+{% endif %}
+</section>
+{% endblock %}

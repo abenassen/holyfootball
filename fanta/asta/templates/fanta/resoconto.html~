@@ -1,0 +1,22 @@
+<table cellspacing="0" cellpadding="0">
+<thead><tr>
+	<th>Nome</th>
+	<th>P</th>
+	<th>D</th>
+	<th>C</th>
+	<th>A</th>
+	<th>Budjet</th>
+</tr></thead>
+<tbody>
+{% for lis in lista %}
+        <tr>
+          <td>{{ lis.nome }}</td>
+          <td>{{ lis.por }}</td>
+          <td>{{ lis.dif }}</td>
+          <td>{{ lis.centr }}</td>
+          <td>{{ lis.att }}</td>
+         <td>{{ lis.budjet }}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
