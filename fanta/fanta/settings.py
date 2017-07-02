@@ -130,8 +130,9 @@ USE_TZ = True
 
 LOGIN_URL = '/fanta/login/'
 LOGIN_REDIRECT_URL = '/fanta/homeuser/'
-STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
+STATIC_URL = '/static/'
 
 
 """LOGGING = {
