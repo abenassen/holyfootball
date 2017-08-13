@@ -98,6 +98,8 @@ class RefertoForm(ModelForm):
 
 class TrasferimentoRosa(models.Model):
   """acquisto/cessione di un calciatore da parte di un allenatore"""
+  class Meta:
+         verbose_name_plural = "Trasferimento Rose"
   from asta.models import Asta
   calciatore = models.ForeignKey(Calciatore, on_delete = models.CASCADE) # il calciatore acquistato
   valore = models.PositiveSmallIntegerField() # importo dell'acquisto/cessione (nel secondo caso sono i soldi recuperati
