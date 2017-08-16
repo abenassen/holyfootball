@@ -91,6 +91,8 @@ class Giornata(models.Model):
 
 class IncontroCampionato(models.Model):
   """Si riferisce ad un vero incontro disputato tra due squadre del campionato"""
+  class Meta:
+        verbose_name_plural = "Incontri campionato"
   data = models.DateTimeField() #data d'inizio dell'incontro
   giornata = models.ForeignKey(Giornata, on_delete = models.CASCADE) # giornata a cui l'incontro appartiene
   squadracasa = models.ForeignKey(SquadraCampionato, related_name="IncontroCasa", on_delete = models.CASCADE) #squadra che gioca in casa
@@ -111,6 +113,8 @@ class IncontroCampionato(models.Model):
 
 class Calciatore(models.Model):
  """calciatore di una data squadra"""
+ class Meta:
+        verbose_name_plural = "Calciatori"
  nome = models.CharField(max_length=40)
  primavera = models.BooleanField(default=False)
  squadra = models.ForeignKey(SquadraCampionato, blank=True, null=True, on_delete = models.CASCADE)

@@ -112,6 +112,7 @@ class Allenatore(models.Model):
  logourl = models.URLField(default='/static/fantaapp/images/savona.png')
  editabili = ['nomesquadra', 'logourl']
  class Meta:
+        verbose_name_plural = "Allenatori"
         unique_together = (("utente", "lega"),)  # c'e' un unico allenatore/squadra per un dato utente/lega
  def resetta(self):
         self.numeroportieri = self.lega.numeroportieri
@@ -184,6 +185,8 @@ class Messaggio(models.Model):
 
 
 class Ruolo(models.Model):
+  class Meta:
+        verbose_name_plural = "Ruoli"
   calciatore = models.ForeignKey(Calciatore, related_name='ruolo', on_delete = models.CASCADE)
   redazione = models.ForeignKey(Redazione, on_delete = models.CASCADE)
   nome = models.CharField(max_length=5) # stringa indicante il ruolo
