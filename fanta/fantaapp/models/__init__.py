@@ -51,7 +51,7 @@ from .lega import GiornataLega
 from .lega import IncontroLega
 from .lega import IncontroCoppa
 from .lega import Referto, Voto
-
+from .lega import Messaggio
 
 
 
@@ -150,7 +150,7 @@ class TrasferimentoRosaForm(ModelForm):
               'allenatore': _('Allenatore del trasferimento'),
             }
             model = TrasferimentoRosa
-        
+
 class ScambioForm(Form):
           def __init__(self, *args, **kwargs):
                 lega = kwargs.pop('lega')

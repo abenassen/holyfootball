@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 # Register your models here.
 from fantaapp.models import IncontroCampionato
 from fantaapp.models import TrasferimentoRosa
-from fantaapp.models import Ruolo, Allenatore, Calciatore
+from fantaapp.models import Ruolo, Allenatore, Calciatore, Campionato, Lega
 
 
 class IncontroCampionatoAdmin(admin.ModelAdmin):
@@ -17,6 +17,12 @@ class IncontroCampionatoAdmin(admin.ModelAdmin):
 class AllenatoreAdmin(admin.ModelAdmin):
     list_display = ('utente', 'lega', 'nomesquadra')
     list_filter = ('lega',)
+
+class CalciatoreAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'squadra', 'squadracampionato')
+    list_filter = ('squadra__campionato',)
+    def squadracampionato(self, obj):
+        return obj.squadra.campionato
 
 class AllenatoreListFilter(admin.SimpleListFilter):
     # Human-readable title which will be displayed in the
@@ -62,4 +68,6 @@ admin.site.register(IncontroCampionato, IncontroCampionatoAdmin)
 admin.site.register(TrasferimentoRosa, TrasferimentoRosaAdmin)
 admin.site.register(Ruolo)
 admin.site.register(Allenatore, AllenatoreAdmin)
-admin.site.register(Calciatore)
+admin.site.register(Calciatore, CalciatoreAdmin)
+admin.site.register(Campionato)
+admin.site.register(Lega)

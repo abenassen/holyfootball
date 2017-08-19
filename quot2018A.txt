@@ -1,0 +1,104 @@
+GOMEZ A	Atalanta	Atalanta	26	38	8.171	2.866	6.724	1.120
+PETAGNA	Atalanta	Atalanta	15	34	6.868	1.472	6.279	1.120
+CORNELIUS	Atalanta	 	11	 	 	 	 	1.120
+ORSOLINI	Atalanta	 	7	 	 	 	 	1.120
+VIDO	Atalanta	 	4	 	 	 	 	1.120
+DZEKO	Roma	Roma	36	37	8.973	3.306	6.622	1.120
+DEFREL	Roma	Sassuolo	16	30	7.383	2.863	6.167	1.120
+EL SHAARAWY	Roma	Roma	16	36	6.903	2.084	6.125	1.120
+ITURBE	Roma	Roma	5	24	5.979	1.025	5.750	1.120
+DESTRO	Bologna	Bologna	17	31	6.661	2.722	5.758	1.000
+PETKOVIC	Bologna	 	3	 	 	 	 	1.000
+OKWONKWO	Bologna	 	1	 	 	 	 	1.000
+BELOTTI	Torino	Torino	37	35	8.543	3.150	6.557	1.000
+IAGO FALQUE	Torino	Torino	16	37	7.149	2.635	6.122	1.000
+LJAJIC	Torino	Torino	16	33	7.000	2.322	6.106	1.000
+BOYE'	Torino	Torino	9	33	6.030	0.852	5.955	1.000
+MAXI LOPEZ	Torino	Torino	3	22	6.273	1.074	6.045	1.000
+PARIGINI	Torino	Chievo	3	3	6.000	0.000	6.000	1.000
+SADIQ	Torino	Roma	3	7	5.857	0.742	5.857	1.000
+EDERA	Torino	 	1	 	 	 	 	1.000
+BUDIMIR	Crotone	Sampdoria	12	18	5.944	0.157	5.944	1.000
+TROTTA	Crotone	Sassuolo	10	30	6.217	1.346	5.817	1.000
+SIMY	Crotone	Crotone	3	21	6.214	1.532	5.786	1.000
+ACOSTY	Crotone	 	1	 	 	 	 	1.000
+ANDRE' SILVA	Milan	 	16	 	 	 	 	1.120
+NIANG	Milan	Milan	11	19	5.974	2.251	5.763	1.120
+BORINI	Milan	 	8	 	 	 	 	1.120
+CUTRONE	Milan	 	2	 	 	 	 	1.120
+ICARDI	Inter	Inter	35	34	8.265	4.226	6.191	1.200
+JOVETIC	Inter	Inter	13	6	5.667	0.471	5.750	1.200
+EDER	Inter	Inter	12	36	6.722	2.036	6.014	1.200
+GABIGOL	Inter	Inter	5	20	6.100	0.800	6.025	1.200
+PINAMONTI	Inter	 	3	 	 	 	 	1.200
+KALINIC	Fiorentina	Fiorentina	26	35	7.200	3.106	6.071	1.200
+SIMEONE	Fiorentina	Genoa	17	36	6.819	2.836	5.917	1.200
+BABACAR	Fiorentina	Fiorentina	12	28	7.125	2.278	6.018	1.200
+ZEKHNINI	Fiorentina	 	3	 	 	 	 	1.200
+REBIC	Fiorentina	 	2	 	 	 	 	1.200
+HIGUAIN	Juventus	Juventus	38	38	8.434	3.070	6.474	1.120
+DYBALA	Juventus	Juventus	29	32	7.719	2.443	6.500	1.120
+MANDZUKIC	Juventus	Juventus	17	36	6.722	1.927	6.153	1.120
+PJACA	Juventus	Juventus	8	21	5.571	1.294	5.595	1.120
+KEAN	Juventus	 	3	 	 	 	 	1.120
+BORRIELLO	Cagliari	Cagliari	22	37	7.311	2.672	6.176	1.000
+FARIAS	Cagliari	Cagliari	13	22	7.045	2.598	6.091	1.000
+SAU	Cagliari	Cagliari	13	38	6.526	1.736	5.961	1.000
+COP	Cagliari	 	3	 	 	 	 	1.000
+MELCHIORRI	Cagliari	Cagliari	3	10	6.950	1.929	6.100	1.000
+GIANNETTI	Cagliari	Cagliari	1	11	5.727	0.494	5.727	1.000
+IMMOBILE	Lazio	Lazio	31	37	8.203	2.853	6.351	1.120
+KEITA B	Lazio	Lazio	25	31	8.226	2.618	6.645	1.120
+CAICEDO	Lazio	 	11	 	 	 	 	1.120
+DJORDJEVIC	Lazio	Lazio	5	24	5.792	0.351	5.792	1.120
+KISHNA	Lazio	Lazio	3	6	5.833	0.373	5.833	1.120
+PALOMBI	Lazio	 	1	 	 	 	 	1.120
+LOMBARDI	Lazio	Lazio	1	18	5.833	1.190	5.889	1.120
+PALOSCHI	SPAL	Atalanta	13	23	5.674	0.928	5.804	1.000
+ANTENUCCI	SPAL	 	12	 	 	 	 	1.000
+FLOCCARI	SPAL	Bologna	5	5	5.700	0.400	5.700	1.000
+SCHICK	Sampdoria	Sampdoria	19	33	7.318	1.874	6.258	1.000
+QUAGLIARELLA	Sampdoria	Sampdoria	17	37	6.892	2.212	5.946	1.000
+CAPRARI	Sampdoria	Pescara	13	36	6.444	2.342	5.917	1.000
+KOWNACKI	Sampdoria	 	3	 	 	 	 	1.000
+BONAZZOLI	Sampdoria	 	1	 	 	 	 	1.000
+CERAVOLO	Benevento	 	11	 	 	 	 	1.000
+CODA M	Benevento	 	8	 	 	 	 	1.000
+PUSCAS	Benevento	 	7	 	 	 	 	1.000
+CISSE' K	Benevento	 	2	 	 	 	 	1.000
+FALCINELLI	Sassuolo	Sassuolo	20	36	7.125	2.712	6.083	1.000
+BERARDI	Sassuolo	Sassuolo	18	21	6.952	2.444	6.238	1.000
+POLITANO	Sassuolo	Sassuolo	14	33	6.788	1.605	6.258	1.000
+MATRI	Sassuolo	Sassuolo	10	34	6.559	2.205	5.868	1.000
+RAGUSA	Sassuolo	Sassuolo	9	28	6.286	1.703	5.875	1.000
+IEMMELLO	Sassuolo	Sassuolo	8	17	6.824	2.229	5.971	1.000
+RICCI	Sassuolo	Roma	4	24	5.938	1.219	5.771	1.000
+LAPADULA	Genoa	Milan	17	33	6.788	2.030	6.045	1.000
+PANDEV	Genoa	Genoa	7	20	6.250	1.479	5.875	1.000
+PALLADINO	Genoa	Crotone	5	34	5.882	1.351	5.824	1.000
+GALABINOV	Genoa	 	4	 	 	 	 	1.000
+GAKPE'	Genoa	Genoa	1	18	5.972	1.060	5.861	1.000
+PELLEGRI	Genoa	Sassuolo	1	29	6.845	1.762	6.138	1.000
+THEREAU	Udinese	Udinese	16	35	6.814	2.632	5.886	1.000
+BAJIC	Udinese	 	15	 	 	 	 	1.000
+LASAGNA	Udinese	 	12	 	 	 	 	1.000
+PERICA	Udinese	Udinese	10	31	6.500	1.737	5.952	1.000
+EWANDRO	Udinese	Udinese	3	5	6.000	0.316	6.000	1.000
+MATOS	Udinese	Udinese	3	20	5.875	0.268	5.875	1.000
+MALLE'	Udinese	 	1	 	 	 	 	1.000
+INGLESE	Chievo	Chievo	15	35	6.843	2.460	5.957	1.000
+PELLISSIER	Chievo	Chievo	9	35	6.786	1.774	5.971	1.000
+PUCCIARELLI	Chievo	Empoli	9	35	5.757	1.578	5.586	1.000
+MEGGIORINI	Chievo	Chievo	6	29	6.086	1.390	5.879	1.000
+RODRIGUEZ A	Chievo	 	1	 	 	 	 	1.000
+PAZZINI	Verona	 	17	 	 	 	 	1.000
+CERCI	Verona	 	14	 	 	 	 	1.000
+VERDE	Verona	 	7	 	 	 	 	1.000
+FARES	Verona	 	3	 	 	 	 	1.000
+MERTENS	Napoli	Napoli	36	37	9.122	4.106	6.797	1.120
+INSIGNE	Napoli	Napoli	30	38	8.184	2.747	6.579	1.120
+CALLEJON	Napoli	Napoli	26	37	7.892	2.608	6.486	1.120
+MILIK	Napoli	Napoli	16	21	6.786	2.383	6.095	1.120
+ZAPATA D	Napoli	Udinese	16	38	6.684	1.928	5.882	1.120
+OUNAS	Napoli	 	12	 	 	 	 	1.120
+PAVOLETTI	Napoli	Genoa	12	23	6.217	1.799	5.870	1.120

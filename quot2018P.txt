@@ -1,0 +1,65 @@
+BERISHA	Atalanta	Lazio	11	29	5.224	1.798	6.155	1.120
+GOLLINI	Atalanta	 	1	 	 	 	 	1.120
+ROSSI F	Atalanta	 	1	 	 	 	 	1.120
+ALISSON	Roma	Roma	13	2	6.000	0.000	6.000	1.120
+LOBONT	Roma	Roma	1	1	0.000	0.000	0.000	1.120
+SKORUPSKI	Roma	Empoli	1	35	5.000	2.246	6.343	1.120
+MIRANTE	Bologna	Bologna	8	23	4.891	1.757	6.152	1.000
+DA COSTA	Bologna	Bologna	1	18	4.694	1.215	6.167	1.000
+SANTURRO	Bologna	 	1	 	 	 	 	1.000
+SIRIGU	Torino	 	9	 	 	 	 	1.000
+ICHAZO	Torino	Torino	1	1	0.000	0.000	0.000	1.000
+MILINKOVIC-SAVIC V	Torino	 	1	 	 	 	 	1.000
+ZACCAGNO	Torino	 	1	 	 	 	 	1.000
+CORDAZ	Crotone	Crotone	7	36	5.056	1.522	6.444	1.000
+FESTA	Crotone	Crotone	1	3	5.167	0.850	6.667	1.000
+VISCOVO	Crotone	 	1	 	 	 	 	1.000
+DONNARUMMA G	Milan	Milan	16	38	5.263	1.366	6.316	1.120
+DONNARUMMA A	Milan	 	1	 	 	 	 	1.120
+GABRIEL	Milan	Milan	1	3	3.167	2.593	5.667	1.120
+STORARI	Milan	Cagliari	1	15	3.467	1.848	5.967	1.120
+HANDANOVIC	Inter	Inter	14	37	5.027	1.257	6.324	1.200
+BERNI	Inter	Inter	1	1	0.000	0.000	0.000	1.200
+PADELLI	Inter	Torino	1	2	4.000	1.000	6.000	1.200
+SPORTIELLO	Fiorentina	Atalanta	10	11	4.000	1.595	5.682	1.200
+DRAGOWSKI	Fiorentina	Fiorentina	1	2	5.000	1.000	6.000	1.200
+CEROFOLINI	Fiorentina	 	1	 	 	 	 	1.200
+BUFFON	Juventus	Juventus	17	38	5.408	0.931	6.039	1.120
+PINSOGLIO	Juventus	 	1	 	 	 	 	1.120
+SZCZESNY	Juventus	Roma	1	38	5.434	1.586	6.276	1.120
+CRAGNO	Cagliari	 	8	 	 	 	 	1.000
+CROSTA	Cagliari	 	1	 	 	 	 	1.000
+RAFAEL	Cagliari	Cagliari	1	21	5.190	2.393	6.286	1.000
+STRAKOSHA	Lazio	Lazio	12	23	4.913	1.239	6.065	1.120
+MARCHETTI	Lazio	Lazio	6	22	5.136	1.914	5.864	1.120
+GUERRIERI	Lazio	 	1	 	 	 	 	1.120
+VARGIC	Lazio	Lazio	1	5	5.300	1.400	5.900	1.120
+MERET	SPAL	 	6	 	 	 	 	1.000
+GOMIS A	SPAL	Torino	1	3	6.000	0.000	6.000	1.000
+MARCHEGIANI	SPAL	 	1	 	 	 	 	1.000
+POLUZZI	SPAL	 	1	 	 	 	 	1.000
+VIVIANO	Sampdoria	Sampdoria	10	18	5.278	1.455	6.361	1.000
+PUGGIONI	Sampdoria	Sampdoria	1	32	5.016	1.934	6.062	1.000
+TOZZO	Sampdoria	Sampdoria	1	1	0.000	0.000	0.000	1.000
+BELEC	Benevento	 	6	 	 	 	 	1.000
+COTTICELLI	Benevento	 	1	 	 	 	 	1.000
+BRIGNOLI	Benevento	 	1	 	 	 	 	1.000
+CONSIGLI	Sassuolo	Sassuolo	9	37	5.014	1.621	6.351	1.000
+SATALINO	Sassuolo	 	1	 	 	 	 	1.000
+PEGOLO	Sassuolo	Sassuolo	1	1	0.500	0.000	5.500	1.000
+MARSON	Sassuolo	Palermo	1	1	0.000	0.000	0.000	1.000
+PERIN	Genoa	Genoa	8	18	5.111	1.728	6.139	1.000
+LAMANNA	Genoa	Genoa	1	23	4.413	2.325	5.761	1.000
+ZIMA	Genoa	Genoa	1	1	0.000	0.000	0.000	1.000
+SCUFFET	Udinese	Udinese	8	6	4.417	1.812	6.250	1.000
+BIZZARRI	Udinese	Pescara	1	30	3.667	1.700	5.967	1.000
+KARNEZIS	Udinese	Udinese	1	33	4.712	1.420	6.121	1.000
+SORRENTINO	Chievo	Chievo	8	35	4.757	1.546	6.257	1.000
+SECULIN	Chievo	Chievo	1	4	3.500	2.092	5.750	1.000
+CONFENTE	Chievo	 	1	 	 	 	 	1.000
+NICOLAS	Verona	 	6	 	 	 	 	1.000
+COPPOLA	Verona	 	1	 	 	 	 	1.000
+SILVESTRI	Verona	 	1	 	 	 	 	1.000
+REINA	Napoli	Napoli	15	38	5.158	1.478	6.092	1.120
+RAFAEL CABRAL	Napoli	Napoli	1	16	5.938	0.242	6.000	1.120
+SEPE	Napoli	Napoli	1	28	6.000	0.000	6.000	1.120

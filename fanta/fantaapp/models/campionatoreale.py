@@ -6,6 +6,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class Campionato(models.Model):
   """Si riferisce ad un campionato nazionale, e.g. Serie A, Liga..."""
+  class Meta:
+        verbose_name_plural = "Campionati"
   nome = models.CharField(max_length=50, unique=True) #nome del campionato
   datainizio = models.DateField() #data indicativa inizio campionato
   datafine = models.DateField() #data indicativa fine campionato

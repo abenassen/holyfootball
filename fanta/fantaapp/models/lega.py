@@ -41,6 +41,8 @@ class Redazione(models.Model):
 
 
 class Lega(models.Model):
+ class Meta:
+        verbose_name_plural = "Leghe"
  nome = models.CharField(max_length=50) # nome della lega
  descrizione = models.TextField(blank=True) # descrizione della lega
  numeropartecipanti = models.PositiveIntegerField(default=10, validators=[MaxValueValidator(20)]) # descrizione della lega

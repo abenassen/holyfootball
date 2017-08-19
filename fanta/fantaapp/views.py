@@ -283,7 +283,23 @@ def edita_competizione(request, legahash):
 	dizionariofasi = {}
         for fase in salvataggio['fasi']:
             print >>sys.stderr, "Nuova fase chiamata", fase['titolo']
-	    nuovafase = FaseCompetizione(nome=strip_tags(fase['titolo']), tipo=fase['tipo'], competizione=competizione)
+	    if fase['tipo'] == 'premio':
+	    	premio = PremioCompetizione(nome=fase['titolo'], competizione = competizione)
+	    	stringa = fase['datipremio']
+	    	if stringa.isdigit(): # e' un po' strano: sarebbe un premio dato direttamente ad un allenatore...
+        		premio.allenatore_id = int(stringa)
+        	else:    # e' un premio che dipende dal risultato di una fase
+        	   compid, nomefase, indice = stringa.split("__")
+        	   print >>sys.stderr, dizionariofasi
+                   faseid, indice = aggiusta_faseindice(nomefase, indice, dizionariofasi)
+        	   premio.faseoriginale_id = faseid
+        	   premio.descrizione = indice
+        	   #imposto la giornata di assegnazione del premio come quella in cui si conclude la fase
+                   numero_giornata_premio = max(IncontroLega.objects.filter(fase_id=1).values_list('giornata__numero', flat=True)) # massima giornata degli incontri della competizione
+                   premio.giornata = Giornata.objects.get(numero=numero_giornata_premio, campionato=lega.campionato)
+        	premio.save()
+                continue
+            nuovafase = FaseCompetizione(nome=strip_tags(fase['titolo']), tipo=fase['tipo'], competizione=competizione)
 	    nuovafase.save()
    	    dizfase = {} # dizionario relativo alla nuova fase creata
 	    dizfase['id'] = nuovafase.id # associo il nome schematico della fase all'id nel database
@@ -318,22 +334,7 @@ def edita_competizione(request, legahash):
 	        	                      fase=nuovafase, andata_ritorno=(len(numero_giornate)==2))
 	        	nuovoincontro_coppa.save()
 	        	dizionariofasi[fase['nome']]['incontri'].append(nuovoincontro_coppa.id)
-	    elif fase['tipo'] == 'premio':
-	    	premio = PremioCompetizione(nome=fase['titolo'], competizione = competizione)
-	    	stringa = fase['datipremio']
-	    	if stringa.isdigit(): # e' un po' strano: sarebbe un premio dato direttamente ad un allenatore...
-        		premio.allenatore_id = int(stringa)
-        	else:    # e' un premio che dipende dal risultato di una fase
-        	   compid, nomefase, indice = stringa.split("__")
-        	   print >>sys.stderr, dizionariofasi
-                   faseid, indice = aggiusta_faseindice(nomefase, indice, dizionariofasi)
-        	   premio.faseoriginale_id = faseid
-        	   premio.descrizione = indice
-        	   #imposto la giornata di assegnazione del premio come quella in cui si conclude la fase
-                   numero_giornata_premio = max(IncontroLega.objects.filter(fase_id=1).values_list('giornata__numero', flat=True)) # massima giornata degli incontri della competizione
-                   premio.giornata = Giornata.objects.get(numero=numero_giornata_premio, campionato=lega.campionato)
-        	premio.save()
-        #raise PermissionDenied("Errore generico")
+	            #raise PermissionDenied("Errore generico")
 	return HttpResponse("{}", content_type='application/json')
     return render(request, 'fantaapp/amministrazione.html', context)
 
