@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from django import forms
 from django.utils.translation import ugettext_lazy as _
 # Register your models here.
 from fantaapp.models import IncontroCampionato
@@ -8,12 +8,12 @@ from fantaapp.models import Ruolo, Allenatore, Calciatore, Campionato, Lega
 
 
 class IncontroCampionatoAdmin(admin.ModelAdmin):
-    list_display = ('data', 'giornata', 'squadracasa', 'squadratrasferta', 'golcasa', 
+    list_display = ('data', 'giornata', 'squadracasa', 'squadratrasferta', 'golcasa',
                     'goltrasferta', 'get_campionato')
     list_filter = ('giornata__campionato', 'giornata__numero')
     def get_campionato(self, obj):
         return obj.giornata.campionato
-        
+
 class AllenatoreAdmin(admin.ModelAdmin):
     list_display = ('utente', 'lega', 'nomesquadra')
     list_filter = ('lega',)
@@ -21,6 +21,7 @@ class AllenatoreAdmin(admin.ModelAdmin):
 class CalciatoreAdmin(admin.ModelAdmin):
     list_display = ('nome', 'squadra', 'squadracampionato')
     list_filter = ('squadra__campionato',)
+    search_fields = ('nome', )
     def squadracampionato(self, obj):
         return obj.squadra.campionato
 
@@ -61,12 +62,27 @@ class TrasferimentoRosaAdmin(admin.ModelAdmin):
     list_filter = ('allenatore__lega', AllenatoreListFilter)
     def get_campionato(self, obj):
         return obj.giornata.campionato
-        
+
+
+class CalciatoreChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        if obj.squadra:
+            return obj.__unicode__() + " - " + obj.squadra.campionato.__unicode__()
+        else:
+            return obj.__unicode__()
+
+class RuoloAdminForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RuoloAdminForm, self).__init__(*args, **kwargs)
+        self.fields['calciatore'] = CalciatoreChoiceField(queryset=Calciatore.objects.all())
+
+class RuoloAdmin(admin.ModelAdmin):
+    form = RuoloAdminForm
 
 
 admin.site.register(IncontroCampionato, IncontroCampionatoAdmin)
 admin.site.register(TrasferimentoRosa, TrasferimentoRosaAdmin)
-admin.site.register(Ruolo)
+admin.site.register(Ruolo, RuoloAdmin)
 admin.site.register(Allenatore, AllenatoreAdmin)
 admin.site.register(Calciatore, CalciatoreAdmin)
 admin.site.register(Campionato)

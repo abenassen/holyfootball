@@ -67,8 +67,15 @@ def populateContext(request):
 @transaction.atomic
 def uploadvoti(request):
         redazione, created = Redazione.objects.get_or_create(nome = 'Napoli')
-	data = json.loads(request.body)
-	anno = 2017
+	try:
+	  data = json.loads(request.body)
+	except ValueError:
+	    data = {}
+	adesso = datetime.datetime.now()
+	anno = adesso.year
+	mese = adesso.month
+	if(mese>6):
+	  anno += 1
         campionato = Campionato.objects.get(nome=('Serie A %d-%d' % (anno-1, anno)))
         lista_all = []
         giornata_obj = trova_ultima_lega(campionato)
