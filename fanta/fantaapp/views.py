@@ -206,7 +206,7 @@ def home_lega(request, legahash, entra=False):
     context['allenatore'] = allen
     if allen.amministratore:
 	    context['allenatori'] = allenatori
-    return render(request, 'fantaapp/hp_lega.html', context)
+    return render(request, 'fantaapp/hp_lega_1.html', context)
 
 
 @amministratore_required

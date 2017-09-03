@@ -1,0 +1,261 @@
+{% extends "fantaapp/base_page.html" %}
+{% block content %}
+
+<div class="container-fluid"    ">
+  <div class="row content">
+   <div class="col-sm-3">
+     <div class = "collapse" id="menuleft">
+            <div class="thumbnail">
+	      <img src="{{allenatore.logourl}}" alt="LisaFusco F.S."/>
+              <div class="caption">
+	      <p>{{allenatore.nomesquadra}}</p>
+              </div>    
+            </div>
+            
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        Squadre
+      </h4>
+    </div>
+      <ul class="list-group">
+        <li class="list-group-item">Tua squadra</li>
+        <li class="list-group-item">Rose</li>
+      </ul>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        Competizioni 
+      </h4>
+    </div>
+      <div class="btn-group-vertical">
+      {% for comp in lega.competizione_set.all %}
+      <div class="dropdown">
+	      <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">{{ comp.nome }} <span class="caret"></span></a>
+	  <ul class="dropdown-menu">
+		<li><a href="{% url 'calendariocompetizione' legahash=lega.codice id_comp=comp.id %}">Calendario</a></li>
+                {% if comp.ha_classifica %}
+                  <li><a href="{% url 'classifica' legahash=lega.codice faseid=comp.fasecompetizione_set.first.id %}">Classifica</a></li>
+                {% endif %}
+	        <li><a href="{% url 'formazione' legahash=lega.codice id_comp=comp.id %}">Formazione</a></li>
+      </div>
+      {% endfor %}
+      </div>
+  </div>
+															</ul>
+					</li>
+
+</div>  
+
+      </div>
+   </div>
+   <div class="col-sm-9">
+    <div class="col-sm-6">
+              <div id="news"><ul class="list-group">
+		{% for msg in messaggi %}
+				<li class="list-group-item">{{ msg.data|date:"d/m/Y G:i:s" }}. {{ msg.testo }}</li>
+		{% endfor %}
+	      </ul></div>
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4 class="panel-title"> Ultima partita</h4></div>
+          <div class="panel-body">Panel Content</div>
+      </div>  
+    </div>  
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4 class="panel-title">Incontri in cartello</h4>  </div>
+          <div class="panel-body">
+			{% for key, lista_incontri in incontri_cartello.items %}
+					<h3>{{ key }}</h3>
+					{% for inc in lista_incontri %}
+					<div>
+					<div class="immagine_casa"><img src="{{ inc.allenatorecasa.logourl }}" alt="logo"/></div>
+					<div class="partita_calendario">
+					<div class="casa">{{ inc.allenatorecasa }}</div>
+					<div class="risultato">
+					<a href='{% url 'tabellinosingolo' legahash=lega.codice incontro_id=inc.id%}'>
+					{% if inc.disputato %}
+					  {{ inc.golcasa }}-{{ inc.goltrasferta }}
+					{% else %}
+					   -
+					{% endif %}
+					</a>
+					</div>
+					<div class="trasferta">{{ inc.allenatoretrasferta }}</div></div>
+					<div class="immagine_trasferta"><img src="{{ inc.allenatoretrasferta.logourl }}" alt="logo"/></div>
+					</div>
+				       {% endfor %}
+			{% endfor %}
+	
+	  
+	  </div>
+      </div> 
+      <div class="panel panel-default">
+          <div class="panel-heading"><h4 class="panel-title">Classifica</h4></div>
+          <div class="panel-body">
+	            <table class="table table-striped table-condensed">
+					<tr class="hidden-xs hidden-sm">
+						<th> </th>
+						<th> </th>
+						<th>Pti </th>
+						<th>G</th>
+						<th>V</th>
+						<th>P</th>
+						<th>S</th>
+						<th>RF</th>
+						<th>RS</th>
+						<th>Media</th>
+					</tr>
+					
+					<tr>
+						<td><img class="img-rounded" height="50px" src="http://zandegu.it/wp-content/uploads/2015/08/11951840_10206191027447156_4269982242674033706_n-400x400.jpg" alt="LisaFusco F.S."/></td>
+						<td class="squadra_class">LisaFusco F.S.</td>
+						<td id="punti">6</td>
+						<td>2</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>
+						<td>7</td>
+						<td>3</td>
+						<td>82</td>
+					</tr>
+					
+					<tr>
+						<td><img class="img-rounded" height="50px" src="https://image.ibb.co/d1vFsQ/scale.jpg" alt="SuperGolletti"/></td>
+						<td class="squadra_class">SuperGolletti</td>
+						<td id="punti">6</td>
+						<td>2</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>
+						<td>2</td>
+						<td>0</td>
+						<td>70.50</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px"  src="http://i.dailymail.co.uk/i/pix/2016/10/25/15/39AB670900000578-0-image-m-78_1477406873094.jpg" alt="Aspettando Aubameyang"/></td>
+						<td class="squadra_class">Aspettando Aubameyang</td>
+						<td id="punti">6</td>
+						<td>2</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>
+						<td>3</td>
+						<td>1</td>
+						<td>69.50</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px"  src="http://imageshack.com/a/img924/9374/jgI3uD.png" alt="P.A.L.L."/></td>
+						<td class="squadra_class">P.A.L.L.</td>
+						<td id="punti">4</td>
+						<td>2</td>
+						<td>1</td>
+						<td>1</td>
+						<td>0</td>
+						<td>6</td>
+						<td>5</td>
+						<td>81.25</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px" src="http://images.performgroup.com/di/library/GOAL/88/ff/embed-only-leonardo-bonucci-ac-milan-gfx_7mznmv76vrnt1qpcw7dmin3ae.png?t=1109053533" alt="Real Milan"/></td>
+						<td class="squadra_class">Real Milan</td>
+						<td id="punti">2</td>
+						<td>2</td>
+						<td>0</td>
+						<td>2</td>
+						<td>0</td>
+						<td>5</td>
+						<td>5</td>
+						<td>76.75</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px"  src="http://www.asdpizzighettone.it/image/logo-asd-pizzighettone.png" alt="Pizzighettone"/></td>
+						<td class="squadra_class">Pizzighettone</td>
+						<td id="punti">1</td>
+						<td>2</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>4</td>
+						<td>5</td>
+						<td>74</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px" src="http://www.gmkfreelogos.com/logos/A/img/Almi.gif" alt="Almi"/></td>
+						<td class="squadra_class">Almi</td>
+						<td id="punti">1</td>
+						<td>2</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>69.50</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px"  src="https://www.brandsoftheworld.com/sites/default/files/styles/logo-img-rounded/public/112016/fk_chita_2016_-_.gif?itok=qwbgLslU" alt="Futbol&#39;nyj Klub Chita"/></td>
+						<td class="squadra_class">Futbol&#39;nyj Klub Chita</td>
+						<td id="punti">1</td>
+						<td>2</td>
+						<td>0</td>
+						<td>1</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>68.25</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px"  src="http://image.ibb.co/kjZGGv/Logo_Francesco_Calcio_2.png" alt="Francesco Calcio"/></td>
+						<td class="squadra_class">Francesco Calcio</td>
+						<td id="punti">0</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>
+						<td>2</td>
+						<td>3</td>
+						<td>7</td>
+						<td>70.75</td>
+					</tr>
+					
+					<tr>
+						<td><img  class="img-rounded" height="50px" src="http://d2lsqxmpmoo5k8.cloudfront.net/web/risorse/squadra/1777552_1339209902.png" alt="Lino Banfield"/></td>
+						<td class="squadra_class">Lino Banfield</td>
+						<td id="punti">0</td>
+						<td>2</td>
+						<td>0</td>
+						<td>0</td>
+						<td>2</td>
+						<td>1</td>
+						<td>3</td>
+						<td>65.50</td>
+					</tr>
+					
+
+				</table>
+
+          </div>
+      </div>  
+ 
+    </div>  
+   </div>  
+  </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<div class="navbar-text">Ciao</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
